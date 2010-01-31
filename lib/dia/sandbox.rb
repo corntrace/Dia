@@ -16,7 +16,7 @@ module Dia
     def run
       @pid = fork do
         unless ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) == 0
-          raise StandardError, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
+          raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
         end
         exec(@app_path)
       end
