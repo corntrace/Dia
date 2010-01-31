@@ -15,12 +15,12 @@ FFI, and the C header "sandbox.h" (found on OSX).
 
 ## Example?
 
-	require 'rubygems'
-	require 'dia'
+    require 'rubygems'
+    require 'dia'
 
-	sandbox = Dia::SandBox.new("/Applications/Firefox.app/Contents/MacOS/firefox-bin", Dia::Profiles::NO_INTERNET)
-        sandbox.run
-        puts "Launched #{sandbox.app_path} with a pid of #{sandbox.pid} using the profile #{sandbox.profile}"
+    sandbox = Dia::SandBox.new("/Applications/Firefox.app/Contents/MacOS/firefox-bin", Dia::Profiles::NO_INTERNET)
+    sandbox.run
+    puts "Launched #{sandbox.app_path} with a pid of #{sandbox.pid} using the profile #{sandbox.profile}"
 
 ## Install?
 
@@ -28,8 +28,6 @@ Right now, the github repository is where you can install "Dia" from.
 I'll make a gem soon.
 
 ## License(MIT)
-
-## License (MIT)  
 
  Copyright (c) 2009 Robert Gleeson   
   
