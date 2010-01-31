@@ -25,7 +25,8 @@ FFI, and the C header "sandbox.h" (found on OSX).
 ## Install?
 
 Right now, the github repository is where you can install "Dia" from.  
-I'll make a gem soon.
+There is a "gemspec" in the root of the project.  
+gem build *.gemspec; gem install *.gem ... after cloning the repository.
 
 ## License(MIT)
 
