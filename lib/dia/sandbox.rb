@@ -1,0 +1,27 @@
+module Dia
+  
+  class SandBox
+  
+    include Dia::CommonAPI
+    
+    attr_accessor :app_path
+    attr_accessor :profile
+    attr_accessor :pid
+    
+    def initialize app_path, profile
+      @app_path = app_path
+      @profile = profile
+    end
+    
+    def run
+      @pid = fork do
+        unless (ret = sandbox_init(@profile, 0x0001, '')) == 0
+          raise StandardError, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret}"
+        end
+        exec(@app_path)
+      end
+    end
+  
+  end
+  
+end
