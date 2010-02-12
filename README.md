@@ -31,6 +31,7 @@ FFI, and the C header "sandbox.h" (found on OSX).
     sandbox = Dia::SandBox.new(Dia::Profiles::NO_OS_SERVICES)
     sandbox.run_with_block do
       open(URI.parse('http://www.google.com')).read
+      exit!
     end
     
 ## Install?
