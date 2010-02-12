@@ -72,11 +72,11 @@ BareTest.suite do 'Dia::SandBox#run_with_block'
     equal(['true', 'true'], successful)
   end
   
-  assert 'will not be able to do any socket based programming' do
+  assert 'will not be able to do any socket based communication' do
     Dia::SandBox.new(Dia::Profiles::NO_NETWORKING).run_with_block do  
       begin
         @reader.close
-        TCPSocket.open('127.0.0.1', 80)
+        TCPSocket.open('http://www.youtube.com', 80)
         @writer.write('false')
       rescue SystemCallError => e
         @writer.write('true')
