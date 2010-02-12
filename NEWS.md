@@ -1,5 +1,8 @@
 ## NEWS
 
+* Added some tests for Dia::SandBox.new#run\_with\_block ..  
+  We ain't got full coverage but we're getting there.
+  
 ### 1.1.pre
 * A person reported that ffi 0.6.0 does not work with dia ..  
   Supplied an explicit dependency on ffi 0.5.4 until I figure it out.
