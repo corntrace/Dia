@@ -8,6 +8,5 @@ Gem::Specification.new do |g|
   
   g.require_paths = [ 'lib' ]
   g.files = Dir["*.md"] + Dir["lib/**/*.rb"]
-  g.add_dependency "ffi", ">= 0.5.4"
-
+  g.add_dependency "ffi", "=0.5.4"
 end
