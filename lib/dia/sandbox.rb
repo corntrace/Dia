@@ -8,7 +8,7 @@ module Dia
     attr_accessor :profile
     attr_accessor :pid
     
-    def initialize(app_path = '', profile = Dia::Profiles::NO_OS_SERVICES)
+    def initialize(profile = Dia::Profiles::NO_OS_SERVICES, app_path='')
       @app_path = app_path
       @profile = profile
     end
