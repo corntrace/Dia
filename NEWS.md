@@ -1,5 +1,6 @@
 ## NEWS
 
+### 1.1.pre
 * A person reported that ffi 0.6.0 does not work with dia ..  
   Supplied an explicit dependency on ffi 0.5.4 until I figure it out.
     
@@ -8,3 +9,4 @@
   If you're running a block of ruby, you can forget about the second.
   
 * I documented my methods!
+
