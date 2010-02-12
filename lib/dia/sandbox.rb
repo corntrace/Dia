@@ -16,7 +16,7 @@ module Dia
       @profile = profile
     end
     
-    # The run method spawn a child process and run the supplied application in a sandbox.
+    # The run method will spawn a child process and run the supplied application in a sandbox.
     #  
     # @raise  [ArgumentError]         Will raise an ArgumentError if an application has not been supplied to 
     #                                 the constructer.
@@ -33,7 +33,7 @@ module Dia
       end
     end
   
-    # The run_with_block method will spawn a child process and run a supplied block of ruby code in a sandbox.
+    # The run\_with\_block method will spawn a child process and run a supplied block of ruby code in a sandbox.
     #
     # It may raise any number of exceptions if the sandbox could be initiated ..  
     # It depends on the restrictions of the sandbox and if the block actually violates a restriction imposed by 
