@@ -13,7 +13,7 @@
 ## How?
 FFI, and the C header "sandbox.h" (found on OSX).
 
-## Example?
+## Example 1 (Running an application under a sandbox)
 
     require 'rubygems'
     require 'dia'
@@ -22,6 +22,17 @@ FFI, and the C header "sandbox.h" (found on OSX).
     sandbox.run
     puts "Launched #{sandbox.app_path} with a pid of #{sandbox.pid} using the profile #{sandbox.profile}"
 
+## Example 2 (Running ruby under a sandbox)
+
+    require 'rubygems'
+    require 'dia'
+    require 'open-uri'
+    
+    sandbox = Dia::SandBox.new(Dia::Profiles::NO_OS_SERVICES)
+    sandbox.run_with_block do
+      open(URI.parse('http://www.google.com')).read
+    end
+    
 ## Install?
 
 It's on gemcutter.  
