@@ -8,7 +8,7 @@ module Dia
     attr_accessor :profile
     attr_accessor :pid
     
-    def initialize app_path, profile
+    def initialize(app_path = '', profile = Dia::Profiles::NO_OS_SERVICES)
       @app_path = app_path
       @profile = profile
     end
@@ -22,7 +22,7 @@ module Dia
       end
     end
   
-    def run_block &blk
+    def run_with_block &blk
       @pid = fork do
          unless ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) == 0
            raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
