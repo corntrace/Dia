@@ -86,6 +86,7 @@ BareTest.suite do 'Dia::SandBox#run_with_block'
     @writer.close
     successful = @reader.gets
     @reader.close
+    
     equal('true', successful)
   end
   
