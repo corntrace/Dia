@@ -78,7 +78,7 @@ BareTest.suite do 'Dia::SandBox#run_with_block'
         @reader.close
         TCPSocket.open('http://www.youtube.com', 80)
         @writer.write('false')
-      rescue SystemCallError => e
+      rescue SocketError => e
         @writer.write('true')
       end
     end
