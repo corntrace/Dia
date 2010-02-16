@@ -12,8 +12,8 @@ Gem::Specification.new do |g|
   g.add_development_dependency "baretest", ">= 0.2.4"
   g.post_install_message = <<-MSG
 
--- Dia --
-Thanks for taking the time to try out the Dia 1.1 (Final)
+----------------------------------------------------------
+Thanks for taking the time to try out Dia 1.1 (Final)
 
 API docs:
 http://yardoc.org/docs/robgleeson-Dia
@@ -27,5 +27,7 @@ irc.freenode.net / #flowof.info
 
 Bug tracker: 
 http://github.com/robgleeson/dia/issues
+----------------------------------------------------------
+
 MSG
 end

@@ -20,16 +20,18 @@ module Dia
     #  
     # @raise  [ArgumentError]         Will raise an ArgumentError if an application has not been supplied to 
     #                                 the constructer.
-    # @raise  [Dia::SandBoxException] Will raise Dia::SandBoxException if the sandbox could not be initiated.
+    # @raise  [Dia::SandBoxException] Will raise Dia::SandBoxException in a child process and exit if the sandbox could not be initiated.
     # @return [Fixnum] The Process ID(PID) that the sandboxed application is being run under.
     def run
       raise ArgumentError, "No application path supplied"  if @app_path.nil?
       
       @pid = fork do
-        unless ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) == 0
+        if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
           raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
+        else
+          exec(@app_path)
         end
-        exec(@app_path)
+        exit
       end
     end
   
