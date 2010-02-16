@@ -2,7 +2,7 @@
 
 ### 1.1 (final)
 
-* Dia::SandBox#run will exit the child process spawned if Dia::SandBoxException is raised ..
+* Dia::SandBox#run and Dia::SandBox#run\_with\_block will exit the child process spawned if Dia::SandBoxException is raised ..
 
 * Added some tests for Dia::SandBox.new#run\_with\_block ..  
   We ain't got full coverage but we're getting there.
