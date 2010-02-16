@@ -31,7 +31,6 @@ module Dia
         else
           exec(@app_path)
         end
-        exit
       end
     end
   
