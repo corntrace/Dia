@@ -4,7 +4,7 @@ Gem::Specification.new do |g|
   g.authors = ['Robert Gleeson']
   g.email = 'rob@flowof.info'
   g.summary = "Dia allows you to sandbox applications and/or a block of ruby on the OSX platform"
-  g.description = "Dia allows you to sandbox applications and/or ruby and a block of ruby on the OSX platform"
+  g.description = "Dia allows you to sandbox applications and/or a block of ruby on the OSX platform"
   
   g.require_paths = [ 'lib' ]
   g.files = Dir["*.md"] + Dir["lib/**/*.rb"]
