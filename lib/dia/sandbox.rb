@@ -57,6 +57,11 @@ module Dia
       Process.detach(@pid)
     end
     
+    # The terminate method will send SIGKILL to a process running in a sandbox.
+    # By doing so, it effectively terminates the sandbox.
+    #
+    # @raise  [SystemCallError] It may raise a number of subclasses of SystemCallError if a call to Process.kill was unsuccessful ..
+    # @return [Fixnum]          It will return 1 when successful ..
     def terminate
       Process.kill('SIGKILL', @pid)
     end
