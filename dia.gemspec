@@ -14,20 +14,10 @@ Gem::Specification.new do |g|
   g.post_install_message = <<-MSG
 
 ----------------------------------------------------------
-Thanks for taking the time to try out Dia 1.1 (Final)
+Thanks for taking the time to try out #{Dia::VERSION}
 
-API docs:
+Tutorial & API documentation is available at:
 http://yardoc.org/docs/robgleeson-Dia
-
-NEWS & README:
-http://github.com/robgleeson/Dia/blob/master/NEWS.md
-http://github.com/robgleeson/Dia/blob/master/README.md
-
-IRC:
-irc.freenode.net / #flowof.info
-
-Bug tracker: 
-http://github.com/robgleeson/dia/issues
 ----------------------------------------------------------
 
 MSG
