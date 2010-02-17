@@ -48,7 +48,7 @@ module Dia
     def run_with_block &blk
       @pid = fork do
         if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
-          raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
+          raise Dia::SandBoxException, "Unable to initialize sandbox .. sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
         end
         yield
         exit
