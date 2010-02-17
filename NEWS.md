@@ -1,4 +1,5 @@
 ## NEWS
+### 1.2.pre
 
 ### 1.1 (final)
 * Dia::SandBox#run\_with\_block will exit the child process spawned by itself incase the user forgets to ..

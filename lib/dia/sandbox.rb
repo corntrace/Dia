@@ -28,16 +28,15 @@ module Dia
       @pid = fork do
         if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
           raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
-        else
-          exec(@app_path)
         end
+        exec(@app_path)
       end
     end
   
     # The run\_with\_block method will spawn a child process and run a supplied block of ruby code in a sandbox.
     #
-    # It may raise any number of exceptions if the sandbox could be initiated ..  
-    # It depends on the restrictions of the sandbox and if the block actually violates a restriction imposed by 
+    # It may raise any number of exceptions if the sandbox could be initiated ..
+    # It depends on the restrictions of the sandbox and if the block violates a restriction imposed by
     # the sandbox .. In any case, the parent process will not be affected and if you want to catch an exception you
     # should do so in your block.
     #
@@ -47,9 +46,8 @@ module Dia
       @pid = fork do
          if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
            raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
-         else
-           yield
          end
+         yield
          exit
       end
     end
