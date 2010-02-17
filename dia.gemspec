@@ -11,14 +11,4 @@ Gem::Specification.new do |g|
   g.files = Dir["*.md"] + Dir["lib/**/*.rb"]
   g.add_dependency "ffi", "= 0.5.4"
   g.add_development_dependency "baretest", ">= 0.2.4"
-  g.post_install_message = <<-MSG
-
-----------------------------------------------------------
-Thanks for taking the time to try out #{Dia::VERSION}
-
-Tutorial & API documentation is available at:
-http://yardoc.org/docs/robgleeson-Dia
-----------------------------------------------------------
-
-MSG
 end
