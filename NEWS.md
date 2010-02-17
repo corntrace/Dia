@@ -1,5 +1,6 @@
 ## NEWS
 ### 1.2.pre
+* I've decided to remove the explicit exit() call in a sandbox spawned with run\_with\_block .. (Introduced in 1.1 Final)
 * Added Dia::SandBox#terminate for terminating a sandbox.
 * Process.detach(<sandbox pid>) is used in the process that spawns a sandbox to avoid collecting zombies ..
 

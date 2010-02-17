@@ -51,7 +51,6 @@ module Dia
           raise Dia::SandBoxException, "Unable to initialize sandbox .. sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
         end
         yield
-        exit
       end
       
       # parent ..
