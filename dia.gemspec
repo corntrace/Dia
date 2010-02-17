@@ -1,6 +1,7 @@
+require File.join(File.dirname(__FILE__), 'lib', 'dia')
 Gem::Specification.new do |g|
   g.name = 'dia'
-  g.version = '1.1'
+  g.version = Dia::VERSION
   g.authors = ['Robert Gleeson']
   g.email = 'rob@flowof.info'
   g.summary = "Dia allows you to sandbox applications and/or a block of ruby on the OSX platform"
