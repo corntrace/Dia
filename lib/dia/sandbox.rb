@@ -31,6 +31,9 @@ module Dia
         end
         exec(@app_path)
       end
+      
+      # parent ..
+      Process.detach(@pid)
     end
   
     # The run\_with\_block method will spawn a child process and run a supplied block of ruby code in a sandbox.
@@ -44,12 +47,19 @@ module Dia
     # @return [Fixnum] The Process ID(PID) that the sandboxed block of code is being run under.
     def run_with_block &blk
       @pid = fork do
-         if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
-           raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
-         end
-         yield
-         exit
+        if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
+          raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
+        end
+        yield
+        exit
       end
+      
+      # parent ..
+      Process.detach(@pid)
+    end
+    
+    def terminate
+      Process.kill('SIGKILL', @pid)
     end
     
   end
