@@ -4,6 +4,9 @@ module Dia
   
     include Dia::CommonAPI
     
+    # We're going to deprecate Dia::SandBox in favor of Dia::Sandbox in the next release.
+    Dia::Sandbox = SandBox
+    
     attr_accessor :app_path
     attr_accessor :profile
     attr_accessor :pid

@@ -1,13 +1,13 @@
 # TODO: Add assertion for Dia::Profiles::NO_OS_SERVICES
 
-BareTest.suite do 'Dia::SandBox#run_with_block'
+BareTest.suite do 'Dia::Sandbox#run_with_block'
 
   setup do
     @reader, @writer = IO.pipe
   end
   
   assert 'will not be able to access the internet' do
-    Dia::SandBox.new(Dia::Profiles::NO_INTERNET).run_with_block do
+    Dia::Sandbox.new(Dia::Profiles::NO_INTERNET).run_with_block do
       begin
         @reader.close
         TCPSocket.open('http://www.google.com', 80)
@@ -25,7 +25,7 @@ BareTest.suite do 'Dia::SandBox#run_with_block'
   end
     
   assert 'will not be able to write the filesystem' do
-    Dia::SandBox.new(Dia::Profiles::NO_FILESYSTEM_WRITE).run_with_block do
+    Dia::Sandbox.new(Dia::Profiles::NO_FILESYSTEM_WRITE).run_with_block do
       begin
         @reader.close
         File.open('foo.txt', 'w')
@@ -43,7 +43,7 @@ BareTest.suite do 'Dia::SandBox#run_with_block'
   end
   
   assert 'will not be able to write to the filesystem except when writing to /tmp' do
-    Dia::SandBox.new(Dia::Profiles::NO_FILESYSTEM_WRITE_EXCEPT_TMP).run_with_block do
+    Dia::Sandbox.new(Dia::Profiles::NO_FILESYSTEM_WRITE_EXCEPT_TMP).run_with_block do
       
       marshal = []
       begin
@@ -73,7 +73,7 @@ BareTest.suite do 'Dia::SandBox#run_with_block'
   end
   
   assert 'will not be able to do any socket based communication' do
-    Dia::SandBox.new(Dia::Profiles::NO_NETWORKING).run_with_block do  
+    Dia::Sandbox.new(Dia::Profiles::NO_NETWORKING).run_with_block do  
       begin
         @reader.close
         TCPSocket.open('http://www.youtube.com', 80)
