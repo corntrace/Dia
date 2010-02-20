@@ -1,5 +1,5 @@
 ## NEWS
-### 1.2.pre
+### 1.2
 * I've decided to use Dia::Sandbox instead of Dia::SandBox but it won't be removed until 1.3 .. (Deprecated for 1.2)
 * I've decided to remove the explicit exit() call in a sandbox spawned with run\_with\_block .. (Introduced in 1.1 Final)
 * Added Dia::Sandbox#terminate for terminating a sandbox.
