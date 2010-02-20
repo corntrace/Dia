@@ -18,7 +18,7 @@ FFI, and the C header "sandbox.h" (found on OSX).
     require 'rubygems'
     require 'dia'
 
-    sandbox = Dia::SandBox.new("/Applications/Firefox.app/Contents/MacOS/firefox-bin", Dia::Profiles::NO_INTERNET)
+    sandbox = Dia::Sandbox.new("/Applications/Firefox.app/Contents/MacOS/firefox-bin", Dia::Profiles::NO_INTERNET)
     sandbox.run
     puts "Launched #{sandbox.app_path} with a pid of #{sandbox.pid} using the profile #{sandbox.profile}"
 
@@ -28,11 +28,18 @@ FFI, and the C header "sandbox.h" (found on OSX).
     require 'dia'
     require 'open-uri'
     
-    sandbox = Dia::SandBox.new(Dia::Profiles::NO_OS_SERVICES)
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES)
     sandbox.run_with_block do
       open(URI.parse('http://www.google.com')).read
-      exit!
     end
+    
+## Example 3 (Terminating a sandbox)
+
+    require 'rubygems'
+    require 'dia'
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_INTERNET)
+    sandbox.run("ping google.com")
+    sandbox.terminate
     
 ## Install?
 
