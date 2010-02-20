@@ -37,8 +37,9 @@ FFI, and the C header "sandbox.h" (found on OSX).
 
     require 'rubygems'
     require 'dia'
-    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_INTERNET)
-    sandbox.run("ping google.com")
+    sandbox = Dia::Sandbox.new("/Applications/Firefox.app/Contents/MacOS/firefox-bin", Dia::Profiles::NO_INTERNET)
+    sandbox.run
+    sleep(5)
     sandbox.terminate
     
 ## Install?
