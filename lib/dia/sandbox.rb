@@ -19,7 +19,7 @@ module Dia
       @profile = profile
     end
     
-    # The run method will spawn a child process and run the supplied application in a sandbox.
+    # The run method will spawn a child process and run the application supplied in the construcer under a sandbox.
     #  
     # @raise  [ArgumentError]         Will raise an ArgumentError if an application has not been supplied to 
     #                                 the constructer.
