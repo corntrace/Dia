@@ -10,10 +10,12 @@
 * No file system writes, exlcuding writing to /tmp.
 * A complete lockdown of Operating System resources.
 
-## How?
+## How it is done
 FFI, and the C header "sandbox.h" (found on OSX).
 
-## Example 1 (Running an application under a sandbox)
+## Examples
+
+### Example 1 (Running an application under a sandbox)
 
     require 'rubygems'
     require 'dia'
@@ -22,18 +24,18 @@ FFI, and the C header "sandbox.h" (found on OSX).
     sandbox.run
     puts "Launched #{sandbox.app_path} with a pid of #{sandbox.pid} using the profile #{sandbox.profile}"
 
-## Example 2 (Running ruby under a sandbox)
+### Example 2 (Running ruby under a sandbox)
 
     require 'rubygems'
     require 'dia'
     require 'open-uri'
     
-    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES)
-    sandbox.run_with_block do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
       open(URI.parse('http://www.google.com')).read
     end
+    sandbox.run
     
-## Example 3 (Terminating a sandbox)
+### Example 3 (Terminating a sandbox)
 
     require 'rubygems'
     require 'dia'
@@ -42,9 +44,9 @@ FFI, and the C header "sandbox.h" (found on OSX).
     sleep(5)
     sandbox.terminate
     
-## Install?
+## Install
 
-It's on gemcutter.  
+It's available at gemcutter: 
 
     gem install dia
 

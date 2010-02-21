@@ -1,6 +1,8 @@
 ## NEWS
 
 ### 1.3
+* Removed run\_with\_block in favor of passing a block to the constructer. Dia::Sandbox#run is used to execute a block or an application now, 
+  but only one or the other may be supplied to the constructer.
 * Removed Dia::SandBox in favor of Dia::Sandbox.
 * Added "has_rdoc = 'yard'" to the gem spec.
 * Added ".yardopts" to the list of files in the gem spec.

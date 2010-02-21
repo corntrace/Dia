@@ -8,49 +8,59 @@ module Dia
     attr_accessor :profile
     attr_accessor :pid
     
+    # The constructer accepts a profile as the first parameter, and an application path _or_ block as its second parameter.  
+    #
+    # @example
+    #
+    #     # Passing an application to the constructer ..
+    #     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES, 'ping google.com')
+    #     
+    #     # Passing a block to the constructer ..
+    #     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
+    #       File.open('foo.txt', 'w') do |f|
+    #         f.puts "bar"
+    #       end
+    #     end
+    #
+    # @see Dia::Sandbox#run See Dia::Sandbox#run for executing the sandbox.
+    #
     # @param  [Constant]     Profile      The profile to be used when creating a sandbox.
-    # @param  [String]       Application  The path to an application you want to sandbox. Optional.
+    # @param  [Proc]         Proc         A proc object you want to run under a sandbox.   
+    #                                     Omit the "Application" parameter if passed.
+    # @param  [String]       Application  The path to an application you want to run under a sandbox.   
+    #                                     Omit the "Proc" parameter if passed.
     # @return [Dia::SandBox] Returns an instance of Dia::SandBox
-    def initialize(profile = Dia::Profiles::NO_OS_SERVICES, app_path=nil)
+    
+    def initialize(profile, app_path=nil, &blk)
+      if (app_path && blk) || (app_path.nil? && blk.nil?) 
+        raise ArgumentError, 'Application or Proc object expected'
+      end
+      
       @app_path = app_path
-      @profile = profile
+      @blk      = blk
+      @profile  = profile
     end
     
-    # The run method will spawn a child process and run the application supplied in the constructer under a sandbox.
-    #  
-    # @raise  [ArgumentError]         Will raise an ArgumentError if an application has not been supplied to 
-    #                                 the constructer.
+    # The run method will spawn a child process and run the application _or_ block supplied in the constructer under a sandbox.  
+    # This method will not block.
+    #
+    # @raise  [SystemCallError]       In the case of running a block, a number of subclasses of SystemCallError may be raised if the block violates sandbox restrictions.
+    #                                 The parent process will not be affected and if you wish to catch exceptions you should do so in your block.
+    #
     # @raise  [Dia::SandBoxException] Will raise Dia::SandBoxException in a child process and exit if the sandbox could not be initiated.
-    # @return [Fixnum] The Process ID(PID) that the sandboxed application is being run under.
+    # @return [Fixnum]                The Process ID(PID) that the sandboxed application is being run under.
     def run
-      raise ArgumentError, "No application path supplied"  if @app_path.nil?
       
       @pid = fork do
         if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
           raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
         end
-        exec(@app_path)
-      end
-      
-      # parent ..
-      Process.detach(@pid)
-    end
-  
-    # The run\_with\_block method will spawn a child process and run a supplied block of ruby code in a sandbox.
-    #
-    # It may raise any number of exceptions if the sandbox could be initiated ..
-    # It depends on the restrictions of the sandbox and if the block violates a restriction imposed by
-    # the sandbox .. In any case, the parent process will not be affected and if you want to catch an exception you
-    # should do so in your block.
-    #
-    # @raise  [Dia::SandBoxException] Will raise Dia::SandBoxException in a child process and exit if the sandbox could not be initiated. 
-    # @return [Fixnum] The Process ID(PID) that the sandboxed block of code is being run under.
-    def run_with_block &blk
-      @pid = fork do
-        if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
-          raise Dia::SandBoxException, "Unable to initialize sandbox .. sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
+        
+        if @app_path
+          exec(@app_path)
+        else
+          @blk.call
         end
-        yield
       end
       
       # parent ..

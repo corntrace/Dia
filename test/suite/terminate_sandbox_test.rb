@@ -1,10 +1,11 @@
 BareTest.suite 'Dia::Sandbox#terminate' do
   
   assert 'A spawned sandbox will be terminated with the #terminate method' do
-    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES)
-    sandbox.run_with_block do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
       sleep(100)
     end
+    
+    sandbox.run
     sandbox.terminate
     sleep(1) # Allow the process time to die ..
     

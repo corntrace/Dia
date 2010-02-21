@@ -1,13 +1,14 @@
 # TODO: Add assertion for Dia::Profiles::NO_OS_SERVICES
 
-BareTest.suite do 'Dia::Sandbox#run_with_block'
+BareTest.suite do 'Dia::Sandbox#run'
 
   setup do
     @reader, @writer = IO.pipe
   end
   
-  assert 'will not be able to access the internet' do
-    Dia::Sandbox.new(Dia::Profiles::NO_INTERNET).run_with_block do
+  assert 'A Ruby block will not be able to access the internet' do
+    
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_INTERNET) do
       begin
         @reader.close
         TCPSocket.open('http://www.google.com', 80)
@@ -17,6 +18,10 @@ BareTest.suite do 'Dia::Sandbox#run_with_block'
       end
     end
     
+    # a child process is spawned, and the block passed to the constructer executed.
+    sandbox.run
+    
+    # back in the parent.
     @writer.close
     successful = @reader.gets
     @reader.close
@@ -24,8 +29,9 @@ BareTest.suite do 'Dia::Sandbox#run_with_block'
     equal('true', successful)
   end
     
-  assert 'will not be able to write the filesystem' do
-    Dia::Sandbox.new(Dia::Profiles::NO_FILESYSTEM_WRITE).run_with_block do
+  assert 'A Ruby block will not be able to write the filesystem' do
+    
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_FILESYSTEM_WRITE)  do
       begin
         @reader.close
         File.open('foo.txt', 'w')
@@ -35,6 +41,10 @@ BareTest.suite do 'Dia::Sandbox#run_with_block'
       end
     end
 
+    # a child process is spawned, and the block passed to the constructer executed.
+    sandbox.run
+    
+    # back in the parent.
     @writer.close
     successful = @reader.gets
     @reader.close
@@ -42,9 +52,8 @@ BareTest.suite do 'Dia::Sandbox#run_with_block'
     equal('true', successful)
   end
   
-  assert 'will not be able to write to the filesystem except when writing to /tmp' do
-    Dia::Sandbox.new(Dia::Profiles::NO_FILESYSTEM_WRITE_EXCEPT_TMP).run_with_block do
-      
+  assert 'A Ruby block will not be able to write to the filesystem except when writing to /tmp' do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_FILESYSTEM_WRITE_EXCEPT_TMP) do
       marshal = []
       begin
         marshal = Marshal.dump(marshal)
@@ -65,6 +74,10 @@ BareTest.suite do 'Dia::Sandbox#run_with_block'
       end
     end
     
+    # a child process is spawned, and the block passed to the constructer executed.
+    sandbox.run
+    
+    # back in the parent.
     @writer.close
     successful = Marshal.load(@reader.gets)
     @reader.close
@@ -72,8 +85,8 @@ BareTest.suite do 'Dia::Sandbox#run_with_block'
     equal(['true', 'true'], successful)
   end
   
-  assert 'will not be able to do any socket based communication' do
-    Dia::Sandbox.new(Dia::Profiles::NO_NETWORKING).run_with_block do  
+  assert 'A Ruby block will not be able to do any socket based communication' do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_NETWORKING) do  
       begin
         @reader.close
         TCPSocket.open('http://www.youtube.com', 80)
@@ -83,6 +96,10 @@ BareTest.suite do 'Dia::Sandbox#run_with_block'
       end
     end
     
+    # a child process is spawned, and the block passed to the constructer executed.
+    sandbox.run
+    
+    # back in the parent.
     @writer.close
     successful = @reader.gets
     @reader.close
