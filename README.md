@@ -52,6 +52,7 @@ It uses the FFI library, and the features exposed by the sandbox header on OSX.
       sleep(20)
     end
     
+    sandbox.run
     puts sandbox.running? # => true
 
 ## Install
