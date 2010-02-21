@@ -1,6 +1,8 @@
 ## NEWS
 
 ### 1.3
+* Dia::Sandbox only exposes its instance variables through getters now. No more setters.
+* Dia::Sandbox#app_path is now Dia::Sandbox#app
 * Removed run\_with\_block in favor of passing a block to the constructer. Dia::Sandbox#run is used to execute a block or an application now, 
   but only one or the other may be supplied to the constructer.
 * Removed Dia::SandBox in favor of Dia::Sandbox.
