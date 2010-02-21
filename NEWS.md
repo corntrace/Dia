@@ -8,6 +8,7 @@
 * Removed Dia::SandBox in favor of Dia::Sandbox.
 * Added "has_rdoc = 'yard'" to the gem spec.
 * Added ".yardopts" to the list of files in the gem spec.
+* SandBoxException becomes SandboxException.
 
 ### 1.2
 * I've decided to use Dia::Sandbox instead of Dia::SandBox but it won't be removed until 1.3 .. (Deprecated for 1.2)
