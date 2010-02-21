@@ -4,8 +4,8 @@ Gem::Specification.new do |g|
   g.version = Dia::VERSION
   g.authors = ['Robert Gleeson']
   g.email = 'rob@flowof.info'
-  g.summary = "Dia allows you to sandbox applications and/or a block of ruby on the OSX platform"
-  g.description = "Dia allows you to sandbox applications and/or a block of ruby on the OSX platform"
+  g.summary = "Dia allows you to sandbox application(s) or block(s) of ruby on the OSX platform by restricting access to operating system resources"
+  g.description = "Dia allows you to sandbox application(s) or block(s) of ruby on the OSX platform by restricting access to operating system resources"
   g.has_rdoc = 'yard'
     
   g.require_paths = [ 'lib' ]
