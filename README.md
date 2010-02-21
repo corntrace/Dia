@@ -44,6 +44,16 @@ FFI, and the C header "sandbox.h" (found on OSX).
     sleep(5)
     sandbox.terminate
     
+### Example 4 (Checking if a sandbox is running)
+
+    require 'rubygems'
+    require 'dia'
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
+      sleep(20)
+    end
+    
+    puts sandbox.running? # => true
+
 ## Install
 
 It's available at gemcutter: 
