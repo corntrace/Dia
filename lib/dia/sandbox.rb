@@ -78,6 +78,22 @@ module Dia
       Process.kill('SIGKILL', @pid)
     end
     
+    # The running? method will return true if a sandbox is running, and false otherwise.
+    # It does so by sending a signal to the process running a sandbox.
+    #
+    # @raise  [SystemCallError] It may raise a subclass of SystemCallError if you do not have permission to send a signal
+    #                           to the process running in a sandbox.
+    #
+    # @return [Boolean]         It will return true or false.
+    def running?
+      begin
+        Process.kill(0, @pid)
+        true
+      rescue Errno::ESRCH
+        false
+      end
+    end
+    
   end
   
 end

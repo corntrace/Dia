@@ -1,6 +1,7 @@
 ## NEWS
 
 ### 1.3
+* Added Dia::Sandbox#running? to check if a process running a sandbox is alive or not.
 * Dia::Sandbox only exposes its instance variables through getters now. No more setters.
 * Dia::Sandbox#app_path is now Dia::Sandbox#app
 * Removed run\_with\_block in favor of passing a block to the constructer. Dia::Sandbox#run is used to execute a block or an application now, 
