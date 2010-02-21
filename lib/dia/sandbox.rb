@@ -49,13 +49,13 @@ module Dia
     # @raise  [SystemCallError]       In the case of running a block, a number of subclasses of SystemCallError may be raised if the block violates sandbox restrictions.
     #                                 The parent process will not be affected and if you wish to catch exceptions you should do so in your block.
     #
-    # @raise  [Dia::SandBoxException] Will raise Dia::SandBoxException in a child process and exit if the sandbox could not be initiated.
+    # @raise  [Dia::SandboxException] Will raise Dia::SandboxException in a child process and exit if the sandbox could not be initiated.
     # @return [Fixnum]                The Process ID(PID) that the sandboxed application is being run under.
     def run
       
       @pid = fork do
         if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
-          raise Dia::SandBoxException, "Couldn't sandbox #{@app}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
+          raise Dia::SandboxException, "Couldn't sandbox #{@app}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
         end
         
         if @app_path

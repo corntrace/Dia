@@ -6,6 +6,6 @@ require File.join(File.dirname(__FILE__), 'dia/sandbox.rb')
 
 module Dia
   VERSION = '1.3.pre'
-  class SandBoxException < StandardError; end
+  class SandboxException < StandardError; end
 end
 
