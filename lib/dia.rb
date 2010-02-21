@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), 'dia/commonapi.rb')
 require File.join(File.dirname(__FILE__), 'dia/sandbox.rb')
 
 module Dia
-  VERSION = '1.2'
+  VERSION = '1.3.pre'
   class SandBoxException < StandardError; end
 end
 
