@@ -6,9 +6,10 @@ Gem::Specification.new do |g|
   g.email = 'rob@flowof.info'
   g.summary = "Dia allows you to sandbox applications and/or a block of ruby on the OSX platform"
   g.description = "Dia allows you to sandbox applications and/or a block of ruby on the OSX platform"
-  
+  g.has_rdoc = 'yard'
+    
   g.require_paths = [ 'lib' ]
-  g.files = Dir["*.md"] + Dir["lib/**/*.rb"]
+  g.files = Dir["*.md"] + Dir["lib/**/*.rb"] + [ '.yardopts']
   g.add_dependency "ffi", "= 0.5.4"
   g.add_development_dependency "baretest", ">= 0.2.4"
   g.post_install_message = <<-DOC
