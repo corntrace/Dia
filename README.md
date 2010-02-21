@@ -11,7 +11,7 @@
 * A complete lockdown of Operating System resources.
 
 ## How it is done
-FFI, and the C header "sandbox.h" (found on OSX).
+It uses the FFI library, and the features exposed by the sandbox header on OSX.
 
 ## Examples
 
