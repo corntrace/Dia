@@ -43,7 +43,7 @@ module Dia
       @pid      = nil
     end
     
-    # The run method will spawn a child process and run the application _or_ block supplied in the constructer under a sandbox.  
+    # The run method will spawn a child process and run the application _or_ block supplied to the constructer under a sandbox.  
     # This method will not block.
     #
     # @raise  [SystemCallError]       In the case of running a block, a number of subclasses of SystemCallError may be raised if the block violates sandbox restrictions.
