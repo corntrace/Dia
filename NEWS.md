@@ -1,6 +1,7 @@
 ## NEWS
 
 ### 1.3
+* Removed Dia::SandBox in favor of Dia::Sandbox.
 * Added "has_rdoc = 'yard'" to the gem spec.
 * Added ".yardopts" to the list of files in the gem spec.
 
