@@ -4,9 +4,10 @@ module Dia
   
     include Dia::CommonAPI
     
-    attr_accessor :app_path
-    attr_accessor :profile
-    attr_accessor :pid
+    attr_reader :app
+    attr_reader :profile
+    attr_reader :pid
+    attr_reader :blk
     
     # The constructer accepts a profile as the first parameter, and an application path _or_ block as its second parameter.  
     #
@@ -31,14 +32,15 @@ module Dia
     #                                     Omit the "Proc" parameter if passed.
     # @return [Dia::SandBox] Returns an instance of Dia::SandBox
     
-    def initialize(profile, app_path=nil, &blk)
-      if (app_path && blk) || (app_path.nil? && blk.nil?) 
+    def initialize(profile, app=nil, &blk)
+      if (app && blk) || (app.nil? && blk.nil?) 
         raise ArgumentError, 'Application or Proc object expected'
       end
       
-      @app_path = app_path
+      @app      = app
       @blk      = blk
       @profile  = profile
+      @pid      = nil
     end
     
     # The run method will spawn a child process and run the application _or_ block supplied in the constructer under a sandbox.  
@@ -53,7 +55,7 @@ module Dia
       
       @pid = fork do
         if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
-          raise Dia::SandBoxException, "Couldn't sandbox #{@app_path}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
+          raise Dia::SandBoxException, "Couldn't sandbox #{@app}, sandbox_init returned #{ret} with error message: '#{error.get_pointer(0).read_string}'"
         end
         
         if @app_path

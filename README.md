@@ -22,7 +22,7 @@ FFI, and the C header "sandbox.h" (found on OSX).
 
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_INTERNET, "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
     sandbox.run
-    puts "Launched #{sandbox.app_path} with a pid of #{sandbox.pid} using the profile #{sandbox.profile}"
+    puts "Launched #{sandbox.app} with a pid of #{sandbox.pid} using the profile #{sandbox.profile}"
 
 ### Example 2 (Running ruby under a sandbox)
 
