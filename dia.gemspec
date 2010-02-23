@@ -17,7 +17,7 @@ Gem::Specification.new do |g|
   Thanks for installing Dia! (#{Dia::VERSION})
   
   Don't forget to check NEWS.md for what has changed in this release:
-  http://www.flowof.info/doc/dia/file.NEWS.html
+  http://www.flowof.info/dia/file.NEWS.html
   
   You can chat with us at irc.freenode.net / #flowof.info if you have
   any problems. Feel free to join us!
