@@ -28,6 +28,7 @@ It uses the FFI library, and the features exposed by the sandbox header on OSX.
 
     require 'rubygems'
     require 'dia'
+    require 'net/http'
     require 'open-uri'
     
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
