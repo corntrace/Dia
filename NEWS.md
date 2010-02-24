@@ -1,5 +1,7 @@
 ## NEWS
 
+* Dia::Sandbox#run accepts a variable amount of arguments that will be passed onto the block supplied to the constructer.
+
 ### 1.3
 * Added Dia::Sandbox#running? to check if a process running a sandbox is alive or not.
 * Dia::Sandbox only exposes its instance variables through getters now. No more setters.

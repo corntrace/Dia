@@ -46,12 +46,14 @@ module Dia
     # The run method will spawn a child process and run the application _or_ block supplied to the constructer under a sandbox.  
     # This method will not block.
     #
+    # @param  [Arguments]             A variable amount of arguments that will be passed onto the block supplied to the constructer. 
+    #
     # @raise  [SystemCallError]       In the case of running a block, a number of subclasses of SystemCallError may be raised if the block violates sandbox restrictions.
     #                                 The parent process will not be affected and if you wish to catch exceptions you should do so in your block.
     #
     # @raise  [Dia::SandboxException] Will raise Dia::SandboxException in a child process and exit if the sandbox could not be initiated.
     # @return [Fixnum]                The Process ID(PID) that the sandboxed application is being run under.
-    def run
+    def run(*args)
       
       @pid = fork do
         if ( ret = sandbox_init(@profile, 0x0001, error = FFI::MemoryPointer.new(:pointer)) ) != 0
@@ -61,7 +63,7 @@ module Dia
         if @app_path
           exec(@app_path)
         else
-          @blk.call
+          @blk.call(*args)
         end
       end
       

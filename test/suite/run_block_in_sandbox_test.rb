@@ -1,6 +1,6 @@
 # TODO: Add assertion for Dia::Profiles::NO_OS_SERVICES
 
-BareTest.suite do 'Dia::Sandbox#run'
+BareTest.suite 'Dia::Sandbox#run' do 
 
   setup do
     @reader, @writer = IO.pipe
@@ -13,7 +13,7 @@ BareTest.suite do 'Dia::Sandbox#run'
         @reader.close
         TCPSocket.open('http://www.google.com', 80)
         @writer.write('false')
-      rescue SystemCallError => e
+      rescue SocketError, SystemCallError => e
         @writer.write('true')
       end
     end
@@ -106,5 +106,21 @@ BareTest.suite do 'Dia::Sandbox#run'
     
     equal('true', successful)
   end
-  
+ 
+  assert 'A Ruby block will be able to receive arguments through #run' do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_INTERNET) do |foo, bar|
+      @reader.close
+      @writer.write(foo+bar)
+      @writer.close
+    end
+    sandbox.run('foo', 'bar')
+    
+    # back in the parent..
+    @writer.close
+    answer = @reader.gets
+    @reader.close
+    
+    equal('foobar', answer)
+  end
+
 end
