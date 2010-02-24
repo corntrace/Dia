@@ -1,6 +1,6 @@
 ## "Dia"
 
-"Dia" allows you to sandbox applications on the OSX platform by restricting what access to Operating System resources they can have.  
+"Dia" allows you to sandbox an application or block of ruby on the OSX platform by restricting what access to Operating System resources they can have.  
 
 ## What restrictions can you apply?  
 
