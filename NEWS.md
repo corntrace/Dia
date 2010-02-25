@@ -1,5 +1,7 @@
 ## NEWS
 
+* Mac OSX 10.5 reported as working! (Bug fix)  
+  Many thanks to Josh Creek for reporting and helping me debug this bug.
 * Use ffi\_lib() to explicitly load the dynamic library "sandbox", or "System"
 * Depend explicitly on FFI v0.6.2
 * Dia::Sandbox#run accepts a variable amount of arguments that will be passed onto the block supplied to the constructer.

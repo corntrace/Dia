@@ -16,9 +16,9 @@ Gem::Specification.new do |g|
   ********************************************************************
   Dia (#{Dia::VERSION})
   
-  There is a known bug on Mac OSX 10.5 which renders Dia unusable for
-  Mac OSX 10.5 users .. We're working on a fix, and hope to have one
-  for the 1.4 final release
+  The Mac OSX 10.5 bug has been reported as fixed! 
+  Many thanks to "Josh Creek" for reporting, and helping me debug the
+  problem until we solved it.
   ********************************************************************
   DOC
 end
