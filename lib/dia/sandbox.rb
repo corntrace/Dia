@@ -56,7 +56,7 @@ module Dia
     def run(*args)
       
       @pid = fork do
-        if sandbox_init(FFI::MemoryPointer.from_string(profile), 0x0001, err = FFI::MemoryPointer.new(:pointer)) == -1
+        if sandbox_init(FFI::MemoryPointer.from_string(@profile), 0x0001, err = FFI::MemoryPointer.new(:pointer)) == -1
           raise Dia::SandboxException, "Failed to initialize sandbox (#{err.read_pointer.read_string}"
         end
         
