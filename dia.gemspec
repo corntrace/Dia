@@ -14,13 +14,11 @@ Gem::Specification.new do |g|
   g.add_development_dependency "baretest", ">= 0.2.4"
   g.post_install_message = <<-DOC
   ********************************************************************
-  Thanks for installing Dia! (#{Dia::VERSION})
+  Dia (#{Dia::VERSION})
   
-  Don't forget to check NEWS.md for what has changed in this release:
-  http://www.flowof.info/dia/file.NEWS.html
-  
-  You can chat with us at irc.freenode.net / #flowof.info if you have
-  any problems. Feel free to join us!
+  There is a known bug on Mac OSX 10.5 which renders Dia unusable for
+  Mac OSX 10.5 users .. We're working on a fix, and hope to have one
+  for the 1.4 final release
   ********************************************************************
   DOC
 end
