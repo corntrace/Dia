@@ -1,5 +1,7 @@
 ## NEWS
 
+* Use ffi\_lib() to explicitly load the dynamic library "sandbox", or "System"
+* Depend explicitly on FFI v0.6.2
 * Dia::Sandbox#run accepts a variable amount of arguments that will be passed onto the block supplied to the constructer.
 
 ### 1.3

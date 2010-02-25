@@ -2,6 +2,7 @@ module Dia
   
   module Profiles
     extend FFI::Library
+    ffi_lib(%w(sandbox System libSystem.B.dylib))
     
     NO_INTERNET                    = attach_variable(:kSBXProfileNoInternet, :string).read_string
     NO_NETWORKING                  = attach_variable(:kSBXProfileNoNetwork, :string).read_string
