@@ -10,7 +10,7 @@ Gem::Specification.new do |g|
     
   g.require_paths = [ 'lib' ]
   g.files = Dir["*.md"] + Dir["lib/**/*.rb"] + [ '.yardopts']
-  g.add_dependency "ffi", "= 0.5.4"
+  g.add_dependency "ffi", "= 0.6.2"
   g.add_development_dependency "baretest", ">= 0.2.4"
   g.post_install_message = <<-DOC
   ********************************************************************

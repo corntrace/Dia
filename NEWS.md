@@ -1,5 +1,7 @@
 ## NEWS
 
+* Bump support for FFI to v0.6.2.
+* Explicitly load the "sandbox" dynamic library through ffi\_lib() in commonapi.rb and profiles.rb
 * Dia::Sandbox#run accepts a variable amount of arguments that will be passed onto the block supplied to the constructer.
 
 ### 1.3
