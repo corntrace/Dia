@@ -1,4 +1,4 @@
-BareTest.suite 'Dia::Sandbox#terminate' do
+BareTest.suite 'Dia::Sandbox#terminate', :tags => [ :terminate ] do
   
   assert 'A spawned sandbox will be terminated with the #terminate method' do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do

@@ -1,5 +1,5 @@
 # See /test/suite/run_block_in_sandbox_test.rb for tests that confirm sandboxes are successfully created ..
-BareTest.suite 'Dia::Sandbox.new' do
+BareTest.suite 'Dia::Sandbox.new', :tags => [ :new ] do
   
   assert 'Passing no arguments to the constructer will raise an ArgumentError' do
     raises(ArgumentError) do
