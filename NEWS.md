@@ -1,5 +1,6 @@
 ## NEWS
 
+### 1.4
 * A typo broke support for launching applications in a sandbox. (Bug affects 1.3 and all the 1.4 *pre* releases)
 * Mac OSX 10.5 reported as working! (Bug fix)  
   Many thanks to Josh Creek for reporting and helping me debug this bug.
