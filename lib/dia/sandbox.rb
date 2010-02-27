@@ -60,8 +60,8 @@ module Dia
           raise Dia::SandboxException, "Failed to initialize sandbox (#{err.read_pointer.read_string})"
         end
         
-        if @app_path
-          exec(@app_path)
+        if @app
+          exec(@app)
         else
           @blk.call(*args)
         end
