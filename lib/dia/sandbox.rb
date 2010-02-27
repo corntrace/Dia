@@ -46,7 +46,7 @@ module Dia
     # The run method will spawn a child process and run the application _or_ block supplied to the constructer under a sandbox.  
     # This method will not block.
     #
-    # @param  [Arguments]             A variable amount of arguments that will be passed onto the block supplied to the constructer. 
+    # @param  [Arguments] Arguments   A variable amount of arguments that will be passed onto the block supplied to the constructer. Optional.
     #
     # @raise  [SystemCallError]       In the case of running a block, a number of subclasses of SystemCallError may be raised if the block violates sandbox restrictions.
     #                                 The parent process will not be affected and if you wish to catch exceptions you should do so in your block.
