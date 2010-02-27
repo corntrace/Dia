@@ -18,9 +18,12 @@ Gem::Specification.new do |g|
   ********************************************************************
   Dia (#{Dia::VERSION})
   
-  The Mac OSX 10.5 bug has been reported as fixed! 
-  Many thanks to "Josh Creek" for reporting, and helping me debug the
-  problem until we solved it.
+  * A typo that would result in being unable to launch an application
+    under a sandbox has been fixed (1.3 and 1.4.pre were affected)
+    
+  * The Mac OSX 10.5 bug has been reported as fixed! 
+    Many thanks to "Josh Creek" for reporting, and helping me debug the
+    problem until we solved it.
   ********************************************************************
   DOC
 end
