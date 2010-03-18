@@ -1,6 +1,3 @@
-require 'rubygems'
-require 'ffi'
-
 module Dia
   module CommonAPI
     extend FFI::Library
