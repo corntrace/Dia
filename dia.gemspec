@@ -9,7 +9,7 @@ Gem::Specification.new do |g|
   g.has_rdoc = 'yard'
     
   g.require_paths = [ 'lib' ]
-  g.files = Dir["*.md"] + Dir["lib/**/*.rb"] + [ '.yardopts']
+  g.files = Dir["*.md"] + Dir["lib/**/*.rb"] + [ '.yardopts', 'LICENSE' ]
   g.test_files = Dir["test/**/*.rb"]
   g.add_dependency "ffi", "= 0.6.2"
   g.add_development_dependency "baretest", ">= 0.2.4"
