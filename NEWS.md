@@ -1,5 +1,8 @@
 ## NEWS
 
+### 1.5
+* Dia::Sandbox#run was not returning the PID of the process running under a sandbox like told in the documentation - it is now.
+
 ### 1.4
 * A typo broke support for launching applications in a sandbox. (Bug affects 1.3 and all the 1.4 *pre* releases)
 * Mac OSX 10.5 reported as working! (Bug fix)  

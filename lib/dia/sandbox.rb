@@ -54,7 +54,6 @@ module Dia
     # @raise  [Dia::SandboxException] Will raise Dia::SandboxException in a child process and exit if the sandbox could not be initiated.
     # @return [Fixnum]                The Process ID(PID) that the sandboxed application is being run under.
     def run(*args)
-      
       @pid = fork do
         if sandbox_init(FFI::MemoryPointer.from_string(@profile), 0x0001, err = FFI::MemoryPointer.new(:pointer)) == -1
           raise Dia::SandboxException, "Failed to initialize sandbox (#{err.read_pointer.read_string})"
@@ -69,6 +68,7 @@ module Dia
       
       # parent ..
       Process.detach(@pid)
+      @pid
     end
     
     # The terminate method will send SIGKILL to a process running in a sandbox.

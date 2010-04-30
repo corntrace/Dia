@@ -123,4 +123,10 @@ BareTest.suite 'Dia::Sandbox#run', :tags => [ :run ] do
     equal('foobar', answer)
   end
 
+  assert('A Ruby block will return the PID of the spawned child process after executing #run') do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_INTERNET) do
+      # ...
+    end
+    equal(Fixnum, sandbox.run.class)
+  end
 end
