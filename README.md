@@ -3,6 +3,9 @@
 "Dia" allows you to sandbox an application or block of ruby on the OSX platform by restricting what access to 
 Operating System resources they can have.  
 
+## How it is done
+It uses the FFI library, and the features exposed by the sandbox header on OSX.
+
 ## What restrictions can you apply?  
 
 Restrictions are applied through a "Profile" that is the first argument to `Dia::Sandbox.new`.  
@@ -14,7 +17,7 @@ There are five profiles in total that you can choose from out-of-the-box:
 * No network access of any kind  
   Using the profile Dia::Profiles::NO_NETWORKING.
 
-* No file system writes
+* No file system writes  
   Using the profile Dia::Profiles::NO_FILESYSTEM_WRITE.
 
 * No file system writes, excluding writing to /tmp  
@@ -24,9 +27,6 @@ There are five profiles in total that you can choose from out-of-the-box:
   Using the profile Dia::Profiles::NO_OS_SERVICES.
 
 _See Below_ for examples.
-
-## How it is done
-It uses the FFI library, and the features exposed by the sandbox header on OSX.
 
 ## Examples
 
@@ -45,8 +45,9 @@ If you try this example yourself, you will see that FireFox cannot visit any web
 **Running Ruby under a sandbox**
 
 This example demonstrates how you would sandbox a block of ruby code.  
-In this example, the block of ruby code tries to access the internet but the profile(Dia::Profiles::NO_INTERNET)  
-doesn't allow this block of ruby to contact the internet.
+In this example, the block of ruby code tries to access the internet but the profile(Dia::Profiles::NO_INTERNET) doesn't 
+allow this block of ruby to contact the internet and an exception is raised(in a child process - your app will continute to
+execute normally).
 
     require 'rubygems'
     require 'dia'
@@ -84,33 +85,25 @@ If you need to check if a sandbox you have spawned is still running, you can use
     sandbox.run
     puts sandbox.running? # => true
 
+
+.. Please see the yardoc [documentation](http://yardoc.org/docs/robgleeson-Dia) for more in-depth coverage of these methods, 
+in particular the documentation for the `Dia::Sandbox` class.
+
 ## Install
 
 It's available at gemcutter: 
 
-    gem install dia
+`gem install dia`
 
-## License(MIT)
+## Bugs
 
- Copyright (c) 2010 Robert Gleeson   
-  
- Permission is hereby granted, free of charge, to any person  
- obtaining a copy of this software and associated documentation  
- files (the "Software"), to deal in the Software without  
- restriction, including without limitation the rights to use,  
- copy, modify, merge, publish, distribute, sublicense, and/or sell  
- copies of the Software, and to permit persons to whom the  
- Software is furnished to do so, subject to the following  
- conditions:  
+No known bugs right now. [Found a bug?](http://github.com/robgleeson/dia/issues).
 
- The above copyright notice and this permission notice shall be  
- included in all copies or substantial portions of the Software.  
+## Contact
 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,  
- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES  
- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND  
- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT  
- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,  
- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING  
- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR  
- OTHER DEALINGS IN THE SOFTWARE.  
+* IRC  
+  irc.freenode.net/#flowof.info as 'robgleeson'
+
+* Mail  
+  rob [at] flowof.info
+
