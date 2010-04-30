@@ -67,16 +67,25 @@ module Dia
       end
       
       # parent ..
-      Process.detach(@pid)
+      @thr = Process.detach(@pid)
       @pid
     end
-    
+   
+    # The exit_status method will return the exit status of the child process running in a sandbox.  
+    # This method *will* block until the child process exits.
+    #
+    # @return [Fixnum, nil] Returns the exit status of the process running under a sandbox as a Fixnum.  
+    #                       Returns nil if Dia::Sandbox#run has not been called yet. 
+    def exit_status()
+      @thr.value().exitstatus() unless @thr.nil?
+    end
+
     # The terminate method will send SIGKILL to a process running in a sandbox.
     # By doing so, it effectively terminates the sandbox.
     #
     # @raise  [SystemCallError] It may raise a number of subclasses of SystemCallError if a call to Process.kill was unsuccessful ..
     # @return [Fixnum]          It will return 1 when successful ..
-    def terminate
+    def terminate()
       Process.kill('SIGKILL', @pid)
     end
     
@@ -86,7 +95,7 @@ module Dia
     #                           to the process running in a sandbox.
     #
     # @return [Boolean]         It will return true or false.
-    def running?
+    def running?()
       begin
         Process.kill(0, @pid)
         true
