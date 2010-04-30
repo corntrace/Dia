@@ -1,6 +1,8 @@
 ## NEWS
 
 ### 1.5
+* Dia::Sandbox#running?, Dia::Sandbox#exit_status, and Dia::Sandbox#terminate will return nil if you call them before
+  calling Dia::Sandbox#run().
 * Added Dia::Sandbox#exit_status for collecting the exit status of a child process running under a sandbox.
 * Dia::Sandbox#run was not returning the PID of the process running under a sandbox like told in the documentation - it is now.
 

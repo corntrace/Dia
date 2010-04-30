@@ -19,5 +19,11 @@ BareTest.suite "Dia::Sandbox#running?", :tags => [ :running? ] do
     sleep(1)
     equal(false, sandbox.running?)
   end
-  
+ 
+  assert("nil will be returned if Dia::Sandbox#run hasn't been called before a call to #running?()") do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_INTERNET) do
+      # ...
+    end
+    equal(nil, sandbox.running?)
+  end
 end

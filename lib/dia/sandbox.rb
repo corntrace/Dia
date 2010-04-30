@@ -84,9 +84,9 @@ module Dia
     # By doing so, it effectively terminates the sandbox.
     #
     # @raise  [SystemCallError] It may raise a number of subclasses of SystemCallError if a call to Process.kill was unsuccessful ..
-    # @return [Fixnum]          It will return 1 when successful ..
+    # @return [Fixnum, nil]     It will return 1 when successful, and it will return "nil" if Dia::Sandbox#run() has not been called yet. 
     def terminate()
-      Process.kill('SIGKILL', @pid)
+      Process.kill('SIGKILL', @pid) unless @pid.nil?
     end
     
     # The running? method will return true if a sandbox is running, and false otherwise.  
@@ -94,13 +94,18 @@ module Dia
     # @raise  [SystemCallError] It may raise a subclass of SystemCallError if you do not have permission to send a signal
     #                           to the process running in a sandbox.
     #
-    # @return [Boolean]         It will return true or false.
+    # @return [Boolean,nil]     It will return true or false if the sandbox is running or not, and it will return "nil"
+    #                           if Dia::Sandbox#run has not been called yet.
     def running?()
-      begin
-        Process.kill(0, @pid)
-        true
-      rescue Errno::ESRCH
-        false
+      if @pid.nil?
+        nil
+      else
+        begin
+          Process.kill(0, @pid)
+          true
+        rescue Errno::ESRCH
+          false
+        end
       end
     end
     

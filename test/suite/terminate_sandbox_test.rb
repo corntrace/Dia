@@ -18,4 +18,12 @@ BareTest.suite 'Dia::Sandbox#terminate', :tags => [ :terminate ] do
     
   end
   
+  assert("nil will be returned if Dia::Sandbox#run hasn't been called before a call to #terminate") do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_INTERNET) do
+      # ...
+    end
+
+    equal(nil, sandbox.terminate)
+  end
+
 end
