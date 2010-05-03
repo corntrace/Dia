@@ -4,8 +4,12 @@ Gem::Specification.new do |g|
   g.version = Dia::VERSION
   g.authors = ['Robert Gleeson']
   g.email = 'rob@flowof.info'
-  g.summary = "Dia allows you to sandbox application(s) or block(s) of ruby on the OSX platform by restricting access to operating system resources"
-  g.description = "Dia allows you to sandbox application(s) or block(s) of ruby on the OSX platform by restricting access to operating system resources"
+  g.summary = "Dia allows you to sandbox application(s) or block(s) of ruby" \
+              "on the OSX platform by restricting access to operating system" \
+              "resources"
+  g.description = "Dia allows you to sandbox application(s) or block(s) of ruby 
+                   on the OSX platform by restricting access to operating system
+                   resources"
   g.has_rdoc = 'yard'
     
   g.require_paths = [ 'lib' ]
@@ -18,12 +22,10 @@ Gem::Specification.new do |g|
   ********************************************************************
   Dia (#{Dia::VERSION})
   
-  * A typo that would result in being unable to launch an application
-    under a sandbox has been fixed (1.3 and 1.4.pre were affected)
-    
-  * The Mac OSX 10.5 bug has been reported as fixed! 
-    Many thanks to "Josh Creek" for reporting, and helping me debug the
-    problem until we solved it.
+  Thanks for installing Dia, #{Dia::VERSION}! 
+  
+  Keep up with the latest @ GitHub:
+  http://github.com/robgleeson/dia
   ********************************************************************
   DOC
 end
