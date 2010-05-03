@@ -98,10 +98,11 @@ module Dia
     # running in a sandbox.  
     # This method *will* block until the child process exits.
     #
-    # @return [Fixnum, nil] Returns the exit status of the process running 
-    #                       under a sandbox as a Fixnum.  
+    # @return [Fixnum, nil] Returns the exit status of the process that ran
+    #                       under a sandbox.
     #                       Returns nil if Dia::Sandbox#run has not 
-    #                       been called yet. 
+    #                       been called yet, or if the process stopped
+    #                       abnormally(ie: through SIGKILL, or #terminate). 
     def exit_status()
       @thr.value().exitstatus() unless @thr.nil?
     end
