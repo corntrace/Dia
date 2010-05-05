@@ -86,6 +86,22 @@ If you need to check if a sandbox you have spawned is still running, you can use
     puts sandbox.running? # => true
 
 
+**Collecting the exit status of a sandbox**  
+
+The sandbox environment is run in a child process, and you can collect its 
+exit status through the #exit_status() method. This method is only available
+from 0.5.pre onwards.
+
+    require 'rubygems'
+    require 'dia'
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
+      exit(10)
+    end
+
+    sandbox.run()
+    sandbox.exit_status() # => 10
+
+
 .. Please see the yardoc [documentation](http://yardoc.org/docs/robgleeson-Dia) for more in-depth coverage of these methods, 
 in particular the documentation for the `Dia::Sandbox` class.
 
