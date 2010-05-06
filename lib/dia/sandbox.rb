@@ -143,7 +143,8 @@ module Dia
     #                       under a sandbox.
     #                       Returns nil if Dia::Sandbox#run has not 
     #                       been called yet, or if the process stopped
-    #                       abnormally(ie: through SIGKILL, or #terminate). 
+    #                       abnormally(ie: through SIGKILL, or #terminate).
+    # @since 1.5
     def exit_status()
       @thr.value().exitstatus() unless @thr.nil?
     end
