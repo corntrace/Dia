@@ -101,6 +101,25 @@ from 0.5.pre onwards.
     sandbox.run()
     sandbox.exit_status() # => 10
 
+**Accessing an exception raised in a sandbox**
+
+Since 1.5, an exception raised in a sandbox can be accessed from the parent
+process. This only works as long as you don't try to capture the exception
+raised in a block by yourself or if you do, you re-raise the exception after 
+capturing it so Dia can forward the exception to the parent process.
+
+    require 'rubygems'
+    require 'dia'
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
+      raise()
+    end
+
+    sandbox.run()
+    sleep(0.1) # Let the parent receive the exception.
+               # Only neccesary for scenarios where an exception is raised
+               # rather quickly.
+
+    puts sandbox.exception().class # prints "RuntimeError"
 
 .. Please see the yardoc [documentation](http://yardoc.org/docs/robgleeson-Dia) for more in-depth coverage of these methods, 
 in particular the documentation for the `Dia::Sandbox` class.
