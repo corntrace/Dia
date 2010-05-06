@@ -9,6 +9,16 @@ BareTest.suite('Exceptions', :tags => [ :exception ]) do
     equal(Dia::SandboxException, sandbox.exception().class)
   end
 
+  assert('Dia::Sandbox#exception() will return an exception raised in the sandbox') do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
+      raise()
+    end
+  
+    sandbox.run()
+    sleep(0.1)
+    equal(RuntimeError, sandbox.exception.class())
+  end
+
   assert('Dia::Sandbox#exception() returns nil if called before ' \
          'Dia::Sandbox#run()') do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
