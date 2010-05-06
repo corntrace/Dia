@@ -2,13 +2,15 @@ module Dia
   
   class Sandbox
   
+    require('io/wait')
+
     include Dia::CommonAPI
     
     attr_reader :app
     attr_reader :profile
     attr_reader :pid
     attr_reader :blk
-    
+
     # The constructer accepts a profile as the first parameter, and an 
     # application path _or_ block as its second parameter.  
     #
@@ -48,8 +50,35 @@ module Dia
       @blk      = blk
       @profile  = profile
       @pid      = nil
+      initialize_streams()
     end
-    
+
+    # The exception() method returns an instance or subclass instance of 
+    # Exception which has been raised in a sandbox. 
+    #
+    # This method can be used if you need access(from the parent process)
+    # to an exception raised in your sandbox.
+    #
+    # If the sandbox raises an exception rather quickly, you might need to
+    # sleep(X) (0.3-0.5s on my machine) before the parent process 
+    # recieves the exception.
+    # 
+    # @return [Exception, nil]  Returns an instance or subclass instance of 
+    #                           Exception when successful, and nil when 
+    #                           there is no exception available.
+    # @since 1.5
+    def exception()
+      @write.close()
+      if @read.ready?()
+        ret = Marshal.load(@read.gets())
+      else
+        ret = nil
+      end
+      @read.close()
+      initialize_streams()
+      ret
+    end
+
     # The run method will spawn a child process and run the application _or_
     # block supplied to the constructer under a sandbox.  
     # This method will not block.
@@ -73,22 +102,34 @@ module Dia
     # @return [Fixnum]                The Process ID(PID) that the sandboxed 
     #                                 application is being run under.
     def run(*args)
+      initialize_streams()      
       @pid = fork do
-        if sandbox_init(FFI::MemoryPointer.from_string(@profile), 
-                        0x0001, 
-                        err = FFI::MemoryPointer.new(:pointer)) == -1
+        begin
+          if sandbox_init(FFI::MemoryPointer.from_string(@profile), 
+                          0x0001, 
+                          err = FFI::MemoryPointer.new(:pointer)) == -1
 
-          raise(Dia::SandboxException, "Failed to initialize sandbox" \
-                                       "(#{err.read_pointer.read_string})")
-        end
-        
-        if @app
-          exec(@app)
-        else
-          @blk.call(*args)
+            raise(Dia::SandboxException, "Failed to initialize sandbox" \
+                                         "(#{err.read_pointer.read_string})")
+          end
+          
+          if @app
+            exec(@app)
+          else
+            @blk.call(*args)
+          end
+
+        rescue SystemExit, Interrupt => e 
+          raise(e)
+        rescue Exception => e        
+          @write.write(Marshal.dump(e))
+          raise(e)
+        ensure
+          @write.close()
+          @read.close()
         end
       end
-      
+
       # parent ..
       @thr = Process.detach(@pid)
       @pid
@@ -143,7 +184,13 @@ module Dia
         end
       end
     end
+   
+    private
     
+    def initialize_streams()
+      @read, @write = IO.pipe()
+    end
+ 
   end
   
 end
