@@ -123,7 +123,6 @@ module Dia
           raise(e)
         rescue Exception => e        
           @write.write(Marshal.dump(e))
-          raise(e)
         ensure
           @write.close()
           @read.close()
