@@ -1,6 +1,8 @@
 ## NEWS
 
 ### 1.5
+* Added Dia::Sandbox#exception() for inspecting an exception raised in a sandbox
+  from the parent process.
 * Fixed a small bug introduced in 1.5.pre - a typo, only encountered if
   Dia::SandboxException was raised.
 * Dia::Sandbox#running?, Dia::Sandbox#exit_status, and Dia::Sandbox#terminate 
