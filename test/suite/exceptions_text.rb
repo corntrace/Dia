@@ -9,7 +9,7 @@ BareTest.suite('Exceptions', :tags => [ :exception ]) do
     equal(Dia::SandboxException, sandbox.exception().class)
   end
 
-  assert('Dia::Sandbox#exception() will return an exception raised in the sandbox') do
+  assert('#exception() will return an exception raised in the sandbox') do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
       raise()
     end
@@ -19,7 +19,7 @@ BareTest.suite('Exceptions', :tags => [ :exception ]) do
     equal(RuntimeError, sandbox.exception.class())
   end
 
-  assert('Dia::Sandbox#exception() returns nil if called before ' \
+  assert('#exception() returns nil if called before ' \
          'Dia::Sandbox#run()') do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
                 # ...
@@ -27,7 +27,7 @@ BareTest.suite('Exceptions', :tags => [ :exception ]) do
     equal(nil, sandbox.exception())
   end
 
-  assert('Dia::Sandbox#exception() returns nil after a second call') do
+  assert('#exception() returns nil after a second call') do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do 
       raise()
     end
@@ -36,6 +36,15 @@ BareTest.suite('Exceptions', :tags => [ :exception ]) do
     sleep(0.1)
     equal(RuntimeError, sandbox.exception().class)
     equal(nil, sandbox.exception())
+  end
+
+  assert('#exception() can marshal data containing one or more \n') do
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do 
+      fork {}
+    end
+    sandbox.run()
+    sleep(0.5)
+    equal(Errno::EPERM, sandbox.exception().class)
   end
 
 end

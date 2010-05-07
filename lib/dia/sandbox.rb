@@ -70,7 +70,7 @@ module Dia
     def exception()
       @write.close()
       if @read.ready?()
-        ret = Marshal.load(@read.gets())
+        ret = Marshal.load(@read.readlines().join())
       else
         ret = nil
       end

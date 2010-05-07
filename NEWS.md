@@ -1,14 +1,23 @@
 ## NEWS
 
-### 1.5
+### 1.5.pre.3
+* Fixed a bug that could see Dia::Sandbox#exception() be unable to marshal an
+  exception raised in a sandbox if it contained embedded newlines.
+
+### 1.5.pre.2
 * Added Dia::Sandbox#exception() for inspecting an exception raised in a sandbox
   from the parent process.
+
 * Fixed a small bug introduced in 1.5.pre - a typo, only encountered if
   Dia::SandboxException was raised.
+
+### 1.5.pre
 * Dia::Sandbox#running?, Dia::Sandbox#exit_status, and Dia::Sandbox#terminate 
   will return nil if you call them before calling Dia::Sandbox#run().
+
 * Added Dia::Sandbox#exit_status for collecting the exit status of a child 
   process running under a sandbox.
+
 * Dia::Sandbox#run was not returning the PID of the process running under a 
   sandbox like told in the documentation - it is now.
 
