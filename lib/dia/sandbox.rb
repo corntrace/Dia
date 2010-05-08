@@ -53,6 +53,14 @@ module Dia
       initialize_streams()
     end
 
+    # The #exception_raised?() method returns true if an exception has been 
+    # raised in the last call to #run(), and false otherwise.
+    #
+    # @return [Boolean] Returns true or false.
+    def exception_raised?()
+      !!@e
+    end
+
     # The exception() method returns the last exception raised after a 
     # a call to #run(), or nil.
     #
