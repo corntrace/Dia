@@ -59,7 +59,7 @@ module Dia
     # @return [Boolean] Returns true or false.
     # @since  1.5
     def exception_raised?()
-      !!@e
+      !!exception()
     end
 
     # The exception() method returns the last exception raised after a 
