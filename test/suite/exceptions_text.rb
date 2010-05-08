@@ -27,7 +27,8 @@ BareTest.suite('Exceptions', :tags => [ :exception ]) do
     equal(nil, sandbox.exception())
   end
 
-  assert('#exception() returns nil after a second call') do
+  assert('#exception() returns an exception object the first' \
+          ' and second time it is called after a single call to #run()') do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do 
       raise()
     end
@@ -35,6 +36,21 @@ BareTest.suite('Exceptions', :tags => [ :exception ]) do
     sandbox.run()
     sleep(0.1)
     equal(RuntimeError, sandbox.exception().class)
+    equal(RuntimeError, sandbox.exception().class)
+  end
+
+  assert('#exception() will be set to nil after the first call to ' \
+         '#run raises an exception, and the second does not') do
+
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do 
+      raise()
+    end
+    
+    sandbox.run()
+    sleep(0.1)
+    equal(RuntimeError, sandbox.exception().class)
+    sandbox.instance_variable_set("@blk", proc { })
+    sandbox.run()
     equal(nil, sandbox.exception())
   end
 

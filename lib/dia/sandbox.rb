@@ -53,8 +53,12 @@ module Dia
       initialize_streams()
     end
 
-    # The exception() method returns an instance or subclass instance of 
-    # Exception which has been raised in a sandbox. 
+    # The exception() method returns the last exception raised after a 
+    # a call to #run(), or nil.
+    #
+    # Every call to #run() resets the variable storing the exception object
+    # to nil, and it will only be a non-nil value if the last call to #run()
+    # raised an exception.
     #
     # This method can be used if you need access(from the parent process)
     # to an exception raised in your sandbox.
@@ -70,13 +74,11 @@ module Dia
     def exception()
       @write.close()
       if @read.ready?()
-        ret = Marshal.load(@read.readlines().join())
-      else
-        ret = nil
+        @e = Marshal.load(@read.readlines().join())
       end
       @read.close()
       initialize_streams()
-      ret
+      @e
     end
 
     # The run method will spawn a child process and run the application _or_
@@ -102,6 +104,7 @@ module Dia
     # @return [Fixnum]                The Process ID(PID) that the sandboxed 
     #                                 application is being run under.
     def run(*args)
+      @e = nil
       initialize_streams()      
       @pid = fork do
         begin
