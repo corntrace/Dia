@@ -57,6 +57,7 @@ module Dia
     # raised in the last call to #run(), and false otherwise.
     #
     # @return [Boolean] Returns true or false.
+    # @since  1.5
     def exception_raised?()
       !!@e
     end
