@@ -121,6 +121,32 @@ capturing it so Dia can forward the exception to the parent process.
 
     puts sandbox.exception().class # prints "RuntimeError"
 
+**Checking if an exception has been raised in a sandbox**
+
+Since 1.5, Sandbox#exception_raised?() is available for checking if a block of
+ruby code running under a sandbox has raised an exception.
+
+    require 'rubygems'
+    require 'dia'
+
+    require 'rubygems'
+    require 'dia'
+    sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
+      raise()
+    end
+
+    sandbox.run()
+    sleep(0.1) # Let the parent receive the exception.
+               # Only neccesary for scenarios where an exception is raised
+               # rather quickly.
+
+    sandbox.exception_raised?() # => true
+
+`#exception()` & `#exception_raised?()` can only be applied to Ruby blocks. For 
+the 2.0 release, a redesign is planned that will fix this issue, as well as 
+data encapsulation issues(ie: @app shouldn't belong to a class that doesn't make
+use of it, which is the case if you're sandboxing a ruby block).
+
 .. Please see the yardoc [documentation](http://yardoc.org/docs/robgleeson-Dia) for more in-depth coverage of these methods, 
 in particular the documentation for the `Dia::Sandbox` class.
 
