@@ -166,5 +166,5 @@ No known bugs right now. [Found a bug?](http://github.com/robgleeson/dia/issues)
   irc.freenode.net/#flowof.info as 'robgleeson'
 
 * Mail  
-  rob [at] flowof.info
+  rob -at- flowof.info
 
