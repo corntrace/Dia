@@ -1,4 +1,5 @@
-require 'rubygems'
-require 'socket'
-require 'baretest'
-require File.join(File.dirname(__FILE__), '..', 'lib', 'dia')
+require('rubygems')
+require('socket')
+require('baretest')
+require(File.expand_path('../lib/dia/1.x', File.dirname(__FILE__)))
+
