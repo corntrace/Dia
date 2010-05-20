@@ -1,6 +1,6 @@
 # TODO: Add assertion for Dia::Profiles::NO_OS_SERVICES
 
-BareTest.suite 'Dia::Sandbox#run', :tags => [ :run ] do 
+BareTest.suite 'Dia::Sandbox#run', :tags => [ :'1.x' ] do 
 
   setup do
     @reader, @writer = IO.pipe

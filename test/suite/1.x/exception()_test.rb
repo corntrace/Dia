@@ -1,4 +1,4 @@
-BareTest.suite('Dia::Sandbox#exception()') do
+BareTest.suite('Dia::Sandbox#exception()', :tags => [ :'1.x' ] ) do
   assert('#exception() will return an exception raised in the sandbox') do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
       raise()

@@ -1,5 +1,5 @@
 BareTest.suite('Dia::Sandbox#exception_raised?()', 
-               :tags => [ :exception_raised] ) do
+               :tags => [ :'1.x'] ) do
   assert('#exception_raised?() returns false when no exception has been ' \
          'raised') do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do

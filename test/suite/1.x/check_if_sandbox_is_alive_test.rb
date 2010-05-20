@@ -1,13 +1,13 @@
-BareTest.suite "Dia::Sandbox#running?", :tags => [ :running? ] do
+BareTest.suite "Dia::Sandbox#running?", :tags => [ :running?, :'1.x' ] do
   
   assert 'Confirm that Dia::Sandbox#running? returns true when a sandbox is running' do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do
       sleep(20)
     end
     
-    sandbox.run
+    sandbox.run()
     equal(true, sandbox.running?)
-    sandbox.terminate
+    sandbox.terminate()
   end
 
   assert 'Confirm that Dia::Sandbox#running? returns false when a sandbox is not running' do

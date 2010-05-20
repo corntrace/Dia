@@ -1,4 +1,4 @@
-BareTest.suite('Exceptions', :tags => [ :sandbox_init_exception ]) do
+BareTest.suite('Exceptions', :tags => [ :'1.x' ]) do
   assert('Dia::SandboxException is raised if a call to sandbox_init() fails') do
     sandbox = Dia::Sandbox.new(Dia::Profiles::NO_OS_SERVICES) do 
       # ...
