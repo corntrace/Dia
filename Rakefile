@@ -35,7 +35,7 @@ namespace(:doc) do
   
   desc('Cycle YARD Documentation(remove & create)')
   task(:cycle) do
-    Rake::Task[:'doc:destroy'].execute
+    Rake::Task[:'doc:remove'].execute
     Rake::Task[:'doc:create'].execute
   end
 end
