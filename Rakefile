@@ -25,8 +25,8 @@ namespace(:doc) do
   DOCUMENTATION_DIRECTORY = 'yard-docs'
 
   yard         = YARD::Rake::YardocTask.new(:create)
-  yard.files   = %w(lib/**/*.rb *.mkd)
-  yard.options = %W(-m markdown -o #{DOCUMENTATION_DIRECTORY}) 
+  yard.files   = %w(lib/**/*.rb)
+  yard.options = %W(-o #{DOCUMENTATION_DIRECTORY}) 
 
   desc('Remove YARD Documentation')
   task(:remove) do
