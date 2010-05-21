@@ -1,5 +1,5 @@
 module Dia
-  module FFI
+  module Functions
     extend(FFI::Library)
     ffi_lib(%w(system))
     attach_function(:sandbox_init, [ :pointer, :uint64, :pointer ], :int)
