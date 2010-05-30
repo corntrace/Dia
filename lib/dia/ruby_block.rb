@@ -11,12 +11,33 @@ module Dia
       @rescue  = false
     end
 
-    # TODO: document me
+    # This method will tell you if Dia will try to rescue an exception 
+    # that could be raised inside your sandbox by returning true or false.
+    #
+    # By default, dia will not try to rescue the exception for you.  
+    # See the setter, {#rescue_exception=} for enabling this feature, and
+    # see {#exception} for accessing the exception.
+    #
+    # Enabling this feature is useful if you need access to an exception
+    # raised in your sandbox from the parent process.
+    #
+    # @return [Boolean] Returns true or false.
+    # @since  2.0
     def rescue_exception()
-      @rescue
+      !!@rescue
     end
 
-    # TODO: document me
+    # This method can enable or disable a feature that sees Dia try to rescue
+    # an exception that could be raised in your sandbox.  
+    #
+    # Enabling this feature is useful if you need access to an exception
+    # raised in your sandbox from the parent process.
+    #
+    # @param  [Boolean] Boolean a true(ish) or false(ish) value.  
+    #
+    # @return [Boolean] Returns the argument passed.
+    #
+    # @since 2.0
     def rescue_exception=(boolean)
       @rescue = boolean
     end
