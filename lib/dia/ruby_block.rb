@@ -105,6 +105,7 @@ module Dia
       # @api private
       def launch(*args)
         @pid = fork do
+          initialize_sandbox()
           if @rescue
             begin
               @block.call(*args)
