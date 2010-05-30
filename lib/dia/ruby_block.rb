@@ -95,7 +95,7 @@ module Dia
         initialize_streams()
       end
 
-      launch()
+      launch(*args)
 
       @exit_status = Process.detach(@pid)
       @pid
