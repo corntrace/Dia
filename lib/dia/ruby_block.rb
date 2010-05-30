@@ -24,25 +24,24 @@ module Dia
     # This method can be used if you need access(from the parent process)
     # to an exception raised in your sandbox.
     #
-    # By default, Dia will not rescue the exception for you.
-    # If you want it to, you can pass the setter #rescue_exception=
-    # a true-ish value.
+    # The method returns the last exception raised after a call to {#run} 
+    # or {#run_nonblock}. It returns nil if there is no exception available…
     #
-    # The exception() method returns the last exception raised after a 
-    # a call to #run() or #run_nonblock(). It returns nil if there is no 
-    # exception available…
-    #
-    # Every call to #run() or #run_nonblock() resets the variable storing 
+    # Every call to {#run} or {#run_nonblock} resets the variable storing 
     # the exception object to nil, and it will only be a non-nil value 
-    # if the last call to #run() or #run_nonblock() raised an exception.
+    # if the last call to {#run} or {#run_nonblock} raised an exception.
     #
     # If the sandbox raises an exception rather quickly, and you're using
-    # #run_nonblock() you might need to sleep(X) (0.1-0.3s on my machine) 
+    # {#run_nonblock} you might need to sleep(X) (0.1-0.3s on my machine) 
     # before the parent process recieves the exception.
     # 
     # @return [Exception, nil]  Returns an instance or subclass instance of 
     #                           Exception when successful, and nil when 
     #                           there is no exception available.
+    #
+    # @see #rescue_exception=   This feature is disabled by default.  
+    #                           See how to enable it.
+    #
     # @since 1.5
     def exception()
       if @rescue
@@ -78,7 +77,6 @@ module Dia
     #                                 been launched under.
     def run(*args)
       if @rescue
-        @e = nil
         initialize_streams()      
       end
 
@@ -89,9 +87,9 @@ module Dia
       @pid
     end
 
+    # An indentical, but non-blocking form of {#run}.
     def run_nonblock(*args)
       if @rescue
-        @e = nil
         initialize_streams()
       end
 
@@ -104,6 +102,7 @@ module Dia
     private
       # @api private
       def launch(*args)
+        @e = nil
         @pid = fork do
           initialize_sandbox()
           if @rescue
