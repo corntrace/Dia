@@ -1,7 +1,8 @@
 module Dia
 
   class RubyBlock
-  
+
+    require('io/wait')  
     include Dia::SharedFeatures
 
     def initialize(profile, &block)
