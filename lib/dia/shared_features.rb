@@ -13,7 +13,10 @@ module Dia
     #                       abnormally(ie: through SIGKILL, or #terminate).
     # @since 1.5
     def exit_status()
-      Thread === @exit_status ? @exit_status.value().exitstatus() : @exit_status
+      unless @exit_status.nil?
+        Thread === @exit_status ? @exit_status.value().exitstatus() : 
+                                  @exit_status.exitstatus()
+      end
     end
 
     # The terminate method will send SIGKILL to a process running in a sandbox.

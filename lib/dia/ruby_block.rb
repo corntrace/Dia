@@ -104,7 +104,7 @@ module Dia
       launch(*args) 
 
       # parent ..
-      @exit_status = Process.wait(@pid)
+      _, @exit_status = Process.wait2(@pid)
       @pid
     end
 
