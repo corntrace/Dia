@@ -9,15 +9,8 @@ task(:default => 'test:run')
 namespace(:test) do
   desc('Run the test suite (default task)')
   task(:run, :release) do |t, args|
-    case(args.release)
-      when nil, '1.0'
-        puts('Executing tests… (For the 1.x release)')
-        BareTest::CommandLine.run([], { :format => 'minimal' } )
-      when '2.0'
-        puts('Not yet implemented…')
-      else
-        puts('"%s" is an unknown option.' % [ args.release ])
-    end
+    puts('Executing tests…')
+    BareTest::CommandLine.run([], { :format => 'minimal' } )
   end
 end
 
