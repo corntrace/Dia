@@ -33,7 +33,8 @@ module Dia
     # Enabling this feature is useful if you need access to an exception
     # raised in your sandbox from the parent process.
     #
-    # @param  [Boolean] Boolean a true(ish) or false(ish) value.  
+    # @param  [Boolean] Boolean A boolean is recommended  but a 
+    #                           true(ish) or false(ish) value is suffice.  
     #
     # @return [Boolean] Returns the argument passed.
     #
@@ -66,11 +67,13 @@ module Dia
     # @since 1.5
     def exception()
       if @rescue
-        @write.close()
-        if @read.ready?()
-          @e = Marshal.load(@read.readlines().join())
+        if !@read.closed?() && !@write.closed?()
+          if @read.ready?()
+            @write.close()
+            @e = Marshal.load(@read.readlines().join())
+            @read.close()
+          end
         end
-        @read.close()
       end
       @e
     end
@@ -131,7 +134,7 @@ module Dia
               @block.call(*args)
             rescue SystemExit, Interrupt => e 
               raise(e)
-            rescue Exception => e        
+            rescue Exception => e      
               @write.write(Marshal.dump(e))
             ensure
               @write.close()
