@@ -66,14 +66,10 @@ module Dia
     #
     # @since 1.5
     def exception()
-      if @rescue
-        if !@read.closed?() && !@write.closed?()
-          if @read.ready?()
-            @write.close()
-            @e = Marshal.load(@read.readlines().join())
-            @read.close()
-          end
-        end
+      if (@rescue) && (!@read.closed?() && !@write.closed?()) && (@read.ready?())
+        @write.close()
+        @e = Marshal.load(@read.readlines().join())
+        @read.close()
       end
       @e
     end
