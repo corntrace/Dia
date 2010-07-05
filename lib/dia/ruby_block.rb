@@ -21,7 +21,7 @@ module Dia
     #                            exception raised in your sandbox.
     #
     # @return [Boolean] Returns true or false.
-    # @since  2.0
+    # @since  2.0.0
     def rescue_exception?()
       !!@rescue
     end
@@ -37,7 +37,7 @@ module Dia
     #
     # @return [Boolean] Returns the passed argument.
     #
-    # @since 2.0
+    # @since 2.0.0
     def rescue_exception=(boolean)
       @rescue = boolean
     end
