@@ -2,15 +2,14 @@ module Dia
 
   module SharedFeatures
 
-    # The exit_status method will return the exit status of the child process 
-    # that has been run in a sandbox.
-    # This method *will* block until the child process exits.
+    # The exit_status method will return the exit status of your sandbox.  
+    # This method *will* block until the child process(your sandbox) exits.
     #
-    # @return [Fixnum, nil] Returns the exit status of the process that ran
-    #                       under a sandbox.
-    #                       Returns nil if #run() or #run_nonblock() has not 
+    # @return [Fixnum, nil] Returns the exit status of your sandbox as a 
+    #                       Fixnum.  
+    #                       Returns nil if #run or #run_nonblock has not
     #                       been called yet, or if the process stopped
-    #                       abnormally(ie: through SIGKILL, or #terminate).
+    #                       abnormally(ie: through {#terminate}).
     # @since 1.5
     def exit_status()
       unless @exit_status.nil?
@@ -19,30 +18,29 @@ module Dia
       end
     end
 
-    # The terminate method will send SIGKILL to a process running in a sandbox.
-    # By doing so, it effectively terminates the sandbox.
+    # The terminate method will send the SIGKILL signal to your sandbox.
     #
     # @raise  [SystemCallError] It may raise a number of subclasses of 
     #                           SystemCallError if a call to Process.kill 
     #                           was unsuccessful…
     #
-    # @return [Fixnum, nil]     It will return 1 when successful, and 
-    #                           it will return nil if #run() or #run_nonblock() 
-    #                           has not been called yet. 
+    # @return [Fixnum, nil]     Returns 1 when successful.     
+    #                           Returns nil if #run or #run_nonblock has not 
+    #                           been called yet. 
     def terminate()
       Process.kill('SIGKILL', @pid) unless @pid.nil?
     end
     
-    # The running?() method will return true if a sandboxed process is running, 
-    # and false otherwise.  
+    # This method will tell you whether or not your sandbox is still running.
     #
-    # @raise  [SystemCallError] It may raise a subclass of SystemCallError if 
+    # @raise  [SystemCallError] Raises a subclass of SystemCallError if 
     #                           you do not have permission to send a signal
-    #                           to the process running in a sandbox.
+    #                           to the process running in a sandboxed 
+    #                           environment.
     #
-    # @return [Boolean,nil]     It will return true if the sandbox is running 
-    #                           and false if it is not.
-    #                           It will return nil if #run or #run_nonblock has 
+    # @return [Boolean,nil]     Returns true when the sandbox is running 
+    #                           and false if it is not.  
+    #                           Returns nil if #run or #run_nonblock has 
     #                           not been called yet.
     def running?()
       if @pid.nil?
