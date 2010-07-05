@@ -200,7 +200,7 @@ suite('Dia::RubyBlock') do
     end
   end
 
-    suite('#run_nonblock()') do
+  suite('#run_nonblock()') do
     setup do
       @result          = nil
       @reader, @writer = IO.pipe
