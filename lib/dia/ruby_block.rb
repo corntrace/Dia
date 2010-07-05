@@ -154,7 +154,7 @@ module Dia
           @read.close()
           @write.close()
         end
-          @read, @write = IO.pipe()
+        @read, @write = IO.pipe()
       end
  
   end
