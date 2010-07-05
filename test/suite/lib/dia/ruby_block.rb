@@ -57,11 +57,9 @@ suite('Dia::RubyBlock') do
           @writer.close()
         end
       end
-      
-      # Initiate sandbox.
+
       sandbox.run()
       
-      # back in the parent.
       @writer.close()
       @result = @reader.gets()
       @reader.close()
@@ -85,10 +83,9 @@ suite('Dia::RubyBlock') do
         end
       end
       
-      # Initiate sandbox.
+
       sandbox.run()
-      
-      # back in the parent.
+
       @writer.close()
       @result = @reader.gets()
       @reader.close()
@@ -119,10 +116,8 @@ suite('Dia::RubyBlock') do
         end
       end
       
-      # Initiate sandbox.
       sandbox.run()
-      
-      # back in the parent.
+
       @writer.close()
       @result = @reader.gets()
       @reader.close()
@@ -145,10 +140,8 @@ suite('Dia::RubyBlock') do
         end
       end
       
-      # a child process is spawned, and the block passed to the constructer executed.
       sandbox.run()
       
-      # back in the parent.
       @writer.close()
       @result = @reader.gets()
       @reader.close()    
