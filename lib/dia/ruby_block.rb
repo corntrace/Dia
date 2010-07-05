@@ -60,7 +60,8 @@ module Dia
     #
     # @since 1.5
     def exception()
-      if (@rescue) && (!@read.closed?() && !@write.closed?()) && (@read.ready?())
+      if (!@read.nil?() && !@write.nil?()) && 
+         (!@read.closed?() && !@write.closed?()) && (@read.ready?())
         @write.close()
         @e = Marshal.load(@read.readlines().join())
         @read.close()
@@ -100,7 +101,7 @@ module Dia
       @pid
     end
 
-    # An indentical, but non-blocking form of {#run}.
+    # An identical, but non-blocking form of {#run}.
     def run_nonblock(*args)
       if @rescue
         initialize_streams()
@@ -149,7 +150,11 @@ module Dia
 
       # @api private
       def initialize_streams()
-        @read, @write = IO.pipe()
+        if (!@read.nil?() && !@write.nil?())
+          @read.close()
+          @write.close()
+        end
+          @read, @write = IO.pipe()
       end
  
   end
