@@ -22,7 +22,7 @@ module Dia
     #
     # @return [Boolean] Returns true or false.
     # @since  2.0
-    def rescue_exception()
+    def rescue_exception?()
       !!@rescue
     end
 
@@ -42,18 +42,18 @@ module Dia
       @rescue = boolean
     end
 
-    # This method will return the exception last raised in your sandbox to the
-    # parent process.  
+    # This method will return the exception last raised in your sandbox. 
     #
     # When this method is being used in conjuction with {#run_nonblock}, you
     # may need to call sleep for a duration of 1 to 2 seconds before the
-    # exception will be available.
+    # exception will be available to the parent process.
     # 
     # @return [Exception, nil]  Returns an instance or subclass instance of 
     #                           Exception when successful, and nil when 
     #                           there is no exception available.  
     #                           Every call to {#run} or {#run_nonblock} will 
-    #                           reset the exception to nil.
+    #                           reset the instance variable referencing 
+    #                           an exception to nil.
     #
     # @see #rescue_exception=   This feature is disabled by default.  
     #                           See how to enable it.
