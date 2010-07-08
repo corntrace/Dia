@@ -198,6 +198,21 @@ suite('Dia::RubyBlock') do
     verify(nil) do
       @result == 'true'
     end
+
+    exercise('#run() called, ' \
+             'returns the Process ID(PID) of spawned process as a Fixnum') do
+      
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
+        # ..
+      end
+
+      @result = sandbox.run()
+    end
+
+    verify(nil) do
+      @result.class == Fixnum
+    end
+
   end
 
   suite('#run_nonblock()') do
@@ -316,6 +331,21 @@ suite('Dia::RubyBlock') do
     verify(nil) do
       @result == 'true'
     end
+
+    exercise('#run_nonblock() called, ' \
+             'returns the Process ID(PID) of spawned process as a Fixnum') do
+
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
+        # ..
+      end
+
+      @result = sandbox.run_nonblock()
+    end
+
+    verify(nil) do
+      @result.class() == Fixnum
+    end
+
   end
 
 end
