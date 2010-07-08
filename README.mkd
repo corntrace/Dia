@@ -1,4 +1,4 @@
-## Dia  
+# Dia  
 Through the use of technology found on Apple's Leopard and Snow Leopard 
 operating systems, Dia can create dynamic and robust sandbox environments 
 for applications and for blocks of ruby code. The Ruby API was designed to be 
@@ -8,21 +8,21 @@ simple, and a joy to use. I hope you feel the same way :-)
 
 * RubyBlock
 
-      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
-        open('http://www.google.com').read()
-      end
+        sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
+          open('http://www.google.com').read()
+        end
 
-      sandbox.rescue_exception = true
-      sandbox.run()
-      puts sandbox.exception().class
+        sandbox.rescue_exception = true
+        sandbox.run()
+        puts sandbox.exception().class
 
 * Application
 
-      sandbox = Dia::Application.new(Dia::Profiles::NO_INTERNET,
-                                     '/path/to/firefox')
+        sandbox = Dia::Application.new(Dia::Profiles::NO_INTERNET,
+                                       '/path/to/firefox')
 
-      sandbox.run_nonblock() 
-      sandbox.terminate()
+        sandbox.run_nonblock() 
+        sandbox.terminate()
 
 ## Documentation
 
@@ -35,6 +35,18 @@ simple, and a joy to use. I hope you feel the same way :-)
 If you want to benefit the most from the documentation, I suggest using both 
 the API documentation and the Wiki documentation. The Wiki has an introductry 
 piece that you really should read.
+
+## Supported Rubies.
+
+The following Ruby implementations have had the test suite run against them, and
+reported a 100% success rate.
+
+* MRI
+  * 1.8.7-p299
+  * 1.9.1-p378
+  * 1.9.2-rc1    
+* REE
+  * Ruby Enterprise Edition 2010.02 (1.8.7-p253)
 
 ## Bugs  
 Bug reports are _very_ welcome, and can be reported through the
