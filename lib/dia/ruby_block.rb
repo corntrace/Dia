@@ -11,8 +11,8 @@ module Dia
       @rescue  = false
     end
 
-    # This method will tell you whether or not an exception will be rescued 
-    # in your sandbox.
+    # This method will tell you whether or not a raised exception will be 
+    # rescued by Dia in your sandbox.
     #
     # @see    #rescue_exception= See #rescue_exception= for enabling the capture
     #                            of raised exceptions in your sandbox.
@@ -37,6 +37,9 @@ module Dia
     #
     # @return [Boolean] Returns the passed argument.
     #
+    # @see    #exception See #exception for information on how to access 
+    #                    an exception raised in your sandbox.
+    #
     # @since 2.0.0
     def rescue_exception=(boolean)
       @rescue = boolean
@@ -49,8 +52,8 @@ module Dia
     # exception will be available to the parent process.
     # 
     # @return [Exception, nil]  Returns an instance or subclass instance of 
-    #                           Exception when successful, and nil when 
-    #                           there is no exception available.  
+    #                           Exception, or nil when there is no exception 
+    #                           available.  
     #                           Every call to {#run} or {#run_nonblock} will 
     #                           reset the instance variable referencing 
     #                           an exception to nil.
@@ -69,8 +72,8 @@ module Dia
       @e
     end
 
-    # The run method will spawn a child process and run the supplied block 
-    # under a sandboxed environment.  
+    # The run method will spawn a child process and run the block supplied to 
+    # the constructor under a sandboxed environment.  
     # This method will block. See {#run_nonblock} for the non-blocking form of
     # this method.
     #
