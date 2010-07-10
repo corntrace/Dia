@@ -225,7 +225,7 @@ suite('Dia::RubyBlock') do
     end
 
     exercise('Confirm the profile ' \
-             'Dia::Profiles::NO_INTERNET ' \ 
+             'Dia::Profiles::NO_INTERNET ' \
              'is creating a working sandbox environment.') do      
       
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
@@ -252,7 +252,7 @@ suite('Dia::RubyBlock') do
       @result == 'true'
     end
 
-    exercise('Confirm the profile ' \ 
+    exercise('Confirm the profile ' \
              'Dia::Profiles::NO_FILESYSTEM_WRITE ' \
              'is creating a working sandbox environment.') do      
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_FILESYSTEM_WRITE) do
