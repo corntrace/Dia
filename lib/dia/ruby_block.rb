@@ -153,7 +153,8 @@ module Dia
 
       # @api private
       def initialize_streams()
-        if (!@read.nil?() && !@write.nil?())
+        if ( (!@read.nil?() && !@write.nil?()) && 
+             (!@read.closed?() && !@write.closed?()) )
           @read.close()
           @write.close()
         end
