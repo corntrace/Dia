@@ -125,7 +125,7 @@ module Dia
           if @rescue
             begin
               @block.call(*args)
-            rescue SystemExit, Interrupt => e 
+            rescue SystemExit, SignalException, NoMemoryError => e 
               raise(e)
             rescue Exception => e      
               @write.write(Marshal.dump(e))
