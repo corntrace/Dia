@@ -51,8 +51,8 @@ suite('Dia::RubyBlock') do
     exercise('@rescue is set to true, ' \
              '#run() called, ' \
              'exception raised, ' \
-             '#exception() returns the exception ' \
-             'to the parent process.') do
+             '#exception() returns raised exception to the parent process.' ) do
+
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
         raise()
       end
@@ -92,8 +92,9 @@ suite('Dia::RubyBlock') do
       @reader, @writer = IO.pipe
     end
 
-    exercise('Confirm the profile Dia::Profiles::NO_INTERNET is creating a ' \
-             'working sandbox environment.') do      
+    exercise('Confirm the profile ' \
+             'Dia::Profiles::NO_INTERNET ' \
+             'is creating a working sandbox environment.') do      
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
         begin
           @reader.close
@@ -117,8 +118,10 @@ suite('Dia::RubyBlock') do
       @result == 'true'
     end
 
-    exercise('Confirm the profile Dia::Profiles::NO_FILESYSTEM_WRITE is ' \
-             'creating a working sandbox environment.') do      
+    exercise('Confirm the profile ' \
+             'Dia::Profiles::NO_FILESYSTEM_WRITE ' \
+             'is creating a working sandbox environment.') do
+      
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_FILESYSTEM_WRITE) do
         begin
           @reader.close
@@ -221,8 +224,10 @@ suite('Dia::RubyBlock') do
       @reader, @writer = IO.pipe
     end
 
-    exercise('Confirm the profile Dia::Profiles::NO_INTERNET is creating a ' \
-             'working sandbox environment.') do      
+    exercise('Confirm the profile ' \
+             'Dia::Profiles::NO_INTERNET ' \ 
+             'is creating a working sandbox environment.') do      
+      
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
         begin
           @reader.close
@@ -247,8 +252,9 @@ suite('Dia::RubyBlock') do
       @result == 'true'
     end
 
-    exercise('Confirm the profile Dia::Profiles::NO_FILESYSTEM_WRITE is ' \
-             'creating a working sandbox environment.') do      
+    exercise('Confirm the profile ' \ 
+             'Dia::Profiles::NO_FILESYSTEM_WRITE ' \
+             'is creating a working sandbox environment.') do      
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_FILESYSTEM_WRITE) do
         begin
           @reader.close
