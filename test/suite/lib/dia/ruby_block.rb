@@ -1,5 +1,20 @@
 suite('Dia::RubyBlock') do
 
+  suite('misc') do
+
+    exercise("An invalid profile is passed to Dia::RubyBlock.new, and #run is called.") do
+      sandbox = Dia::RubyBlock.new('invalid_profile') { }
+      sandbox.rescue_exception = true
+      sandbox.run
+      @result = sandbox.exception
+    end
+    
+    verify('Dia::RubyBlock#exception returns an instance of Dia::Exceptions::SandboxException') do
+      @result.class == Dia::Exceptions::SandboxException
+    end
+
+  end
+
   suite('#rescue_exception?()') do
     exercise('@rescue is set to false, ' \
              '#rescue_exception?() returns false') do
