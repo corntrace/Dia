@@ -168,8 +168,8 @@ module Dia
                                        err = FFI::MemoryPointer.new(:pointer)) \
                                        == -1
 
-          raise(Dia::SandboxException, "Failed to initialize sandbox" \
-                                       "(#{err.read_pointer.read_string})")
+          raise(Dia::Exceptions::SandboxException, "Failed to initialize sandbox" \
+                                                   "(#{err.read_pointer.read_string})")
         end
       end
 
