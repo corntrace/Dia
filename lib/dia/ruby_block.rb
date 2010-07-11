@@ -142,9 +142,9 @@ module Dia
       def launch(*args)
         @e = nil
         @pid = fork do
-          initialize_sandbox()
           if @rescue
             begin
+              initialize_sandbox()
               @block.call(*args)
             rescue SystemExit, SignalException, NoMemoryError => e 
               raise(e)
@@ -155,6 +155,7 @@ module Dia
               @read.close()
             end
           else
+            initialize_sandbox()
             @block.call(*args)
           end
         end
