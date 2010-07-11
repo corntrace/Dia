@@ -29,6 +29,7 @@ module Dia
     #                           been called yet. 
     def terminate()
       Process.kill('SIGKILL', @pid) unless @pid.nil?
+      Process.detach(@pid) if running? # precaution against accumulating zombies. 
     end
     
     # This method will tell you whether or not your sandbox is still running.
