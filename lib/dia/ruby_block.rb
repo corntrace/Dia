@@ -5,6 +5,12 @@ module Dia
     require('io/wait')  
     include Dia::SharedFeatures
 
+    # @param  [String] Profile Accepts one of five profiles which can be found
+    #                          under the {Dia::Profiles} module.
+    #
+    # @param  [Proc]  Proc     Accepts a Proc object as its second argument.
+    #
+    # @return [Dia::RubyBlock] Returns an instance of Dia::RubyBlock.
     def initialize(profile, &block)
       @profile = profile
       @block   = block
