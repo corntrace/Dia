@@ -17,6 +17,21 @@ module Dia
       @rescue  = false
     end
 
+
+    # This method will tell you whether or not an exception has been raised in
+    # your sandbox after your sandbox has been executed.
+    # 
+    # @see    #rescue_exception= See #rescue_exception= for enabling the capture
+    #                            of raised exceptions in your sandbox.
+    #
+    # @see    #exception         See the #exception method for accessing an 
+    #                            exception raised in your sandbox.
+    #
+    # @return [Boolean]          Returns true or false.
+    def exception_raised?()
+      !!exception()
+    end
+
     # This method will tell you whether or not a raised exception will be 
     # rescued by Dia in your sandbox.
     #
