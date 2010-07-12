@@ -8,8 +8,7 @@ module Dia
     # @return [Fixnum, nil] Returns the exit status of your sandbox as a 
     #                       Fixnum.  
     #                       Returns nil if #run or #run_nonblock has not
-    #                       been called yet, or if the process stopped
-    #                       abnormally(ie: through {#terminate}).
+    #                       been called yet.
     # @since 1.5
     def exit_status()
       unless @exit_status.nil?
@@ -28,8 +27,10 @@ module Dia
     #                           Returns nil if #run or #run_nonblock has not 
     #                           been called yet. 
     def terminate()
-      Process.kill('SIGKILL', @pid) unless @pid.nil?
-      Process.detach(@pid) if running? # precaution against accumulating zombies. 
+      ret = Process.kill('SIGKILL', @pid) unless @pid.nil?
+      # precaution against the collection of zombie processes.
+      @exit_status = Process.detach(@pid) if running? 
+      ret
     end
     
     # This method will tell you whether or not your sandbox is still running.
