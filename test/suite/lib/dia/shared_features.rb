@@ -51,8 +51,8 @@ suite('Dia::SharedFeatures') do
         @result = @sandbox.exit_status
       end
 
-      verify('#exit_status returns nil.') do
-        @result == nil
+      verify('#exit_status returns nil, or a Process PID(PID) as a Fixnum.') do
+        @result == nil || @result.class == Fixnum
       end
 
       exercise('#run_nonblock is called, blocking IO is performed, #terminate sent to process') do
