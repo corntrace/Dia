@@ -19,6 +19,13 @@ module Dia
 
     # The terminate method will send the SIGKILL signal to your sandbox.
     #
+    # To prevent the possible accumulation of zombies, this method will 
+    # wait to collect the status of your sandbox if it doesn't appear to have
+    # left the process table after sending SIGKILL.
+    #
+    # This is a rare event, and when it does happen #terminate shouldn't block
+    # for more than one second.
+    #
     # @raise  [SystemCallError] It may raise a number of subclasses of 
     #                           SystemCallError if a call to Process.kill 
     #                           was unsuccessful…
@@ -29,7 +36,7 @@ module Dia
     def terminate()
       ret = Process.kill('SIGKILL', @pid) unless @pid.nil?
       # precaution against the collection of zombie processes.
-      @exit_status = Process.detach(@pid) if running? 
+      _ , @exit_status =  Process.wait2(@pid) if running? 
       ret
     end
     
