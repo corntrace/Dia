@@ -93,7 +93,7 @@ suite('Dia::SharedFeatures') do
         @result == false
       end
 
-      exercise('Neither #run or #run_nonblock has been called. 'do
+      exercise('Neither #run or #run_nonblock has been called. ') do
         sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) { }
         @result = sandbox.running?
       end
