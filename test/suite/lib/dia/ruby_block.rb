@@ -53,7 +53,7 @@ suite('Dia::RubyBlock') do
     exercise('@rescue is set to false, #run is called, no exception is raised. ') do
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
         begin
-          raise()
+          raise
         rescue => e
         end
       end
@@ -78,7 +78,7 @@ suite('Dia::RubyBlock') do
     exercise('@rescue is set to true, #run is called, an is exception raised, ' \
              '@rescue is set to false. ') do
       @sandbox.rescue_exception = true
-      @sandbox.run()
+      @sandbox.run
       @sandbox.rescue_exception = false
       @result = @sandbox.exception.klass
     end
@@ -89,7 +89,8 @@ suite('Dia::RubyBlock') do
 
   end
 
-  suite('#run()') do
+  suite('#run') do
+
     setup do
       @result          = nil
       @reader, @writer = IO.pipe
@@ -106,15 +107,15 @@ suite('Dia::RubyBlock') do
         rescue SocketError, SystemCallError => e
           @writer.write('true')
         ensure
-          @writer.close()
+          @writer.close
         end
       end
 
-      sandbox.run()
+      sandbox.run
       
-      @writer.close()
-      @result = @reader.gets()
-      @reader.close()
+      @writer.close
+      @result = @reader.gets
+      @reader.close
     end
 
     verify(nil) do
@@ -133,16 +134,16 @@ suite('Dia::RubyBlock') do
         rescue SocketError, SystemCallError => e
           @writer.write('true')
         ensure 
-          @writer.close()
+          @writer.close
         end
       end
       
 
-      sandbox.run()
+      sandbox.run
 
-      @writer.close()
-      @result = @reader.gets()
-      @reader.close()
+      @writer.close
+      @result = @reader.gets
+      @reader.close
     end
 
     verify(nil) do
@@ -166,15 +167,15 @@ suite('Dia::RubyBlock') do
             @writer.write('false')
           end
         ensure 
-          @writer.close()
+          @writer.close
         end
       end
       
-      sandbox.run()
+      sandbox.run
 
-      @writer.close()
-      @result = @reader.gets()
-      @reader.close()
+      @writer.close
+      @result = @reader.gets
+      @reader.close
     end
 
     verify(nil) do
@@ -186,7 +187,7 @@ suite('Dia::RubyBlock') do
              'is creating a working sandbox environment') do
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_NETWORKING) do  
         begin
-          @reader.close()
+          @reader.close
           TCPSocket.open('http://www.youtube.com', 80)
           @writer.write('false')
         rescue SocketError => e
@@ -194,20 +195,20 @@ suite('Dia::RubyBlock') do
         end
       end
       
-      sandbox.run()
+      sandbox.run
       
-      @writer.close()
-      @result = @reader.gets()
-      @reader.close()    
+      @writer.close
+      @result = @reader.gets
+      @reader.close    
     end
 
     verify(nil) do
       @result == 'true'
     end
 
-    exercise('#run() called. ') do
+    exercise('#run called. ') do
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) { }
-      @result = sandbox.run()
+      @result = sandbox.run
     end
 
     verify('returns the Process ID(PID) of spawned process as a Fixnum') do
@@ -216,7 +217,8 @@ suite('Dia::RubyBlock') do
 
   end
 
-  suite('#run_nonblock()') do
+  suite('#run_nonblock') do
+
     setup do
       @result          = nil
       @reader, @writer = IO.pipe
@@ -234,16 +236,16 @@ suite('Dia::RubyBlock') do
         rescue SocketError, SystemCallError => e
           @writer.write('true')
         ensure
-          @writer.close()
+          @writer.close
         end
       end
 
-      sandbox.run_nonblock()
+      sandbox.run_nonblock
       sleep(1)
 
-      @writer.close()
-      @result = @reader.gets()
-      @reader.close()
+      @writer.close
+      @result = @reader.gets
+      @reader.close
     end
 
     verify(nil) do
@@ -261,17 +263,17 @@ suite('Dia::RubyBlock') do
         rescue SocketError, SystemCallError => e
           @writer.write('true')
         ensure 
-          @writer.close()
+          @writer.close
         end
       end
       
 
-      sandbox.run_nonblock()
+      sandbox.run_nonblock
       sleep(1)
 
-      @writer.close()
-      @result = @reader.gets()
-      @reader.close()
+      @writer.close
+      @result = @reader.gets
+      @reader.close
     end
 
     verify(nil) do
@@ -295,16 +297,16 @@ suite('Dia::RubyBlock') do
             @writer.write('false')
           end
         ensure 
-          @writer.close()
+          @writer.close
         end
       end
       
-      sandbox.run_nonblock()
+      sandbox.run_nonblock
       sleep(1)
 
-      @writer.close()
-      @result = @reader.gets()
-      @reader.close()
+      @writer.close
+      @result = @reader.gets
+      @reader.close
     end
 
     verify(nil) do
@@ -316,7 +318,7 @@ suite('Dia::RubyBlock') do
              'is creating a working sandbox environment') do
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_NETWORKING) do  
         begin
-          @reader.close()
+          @reader.close
           TCPSocket.open('http://www.youtube.com', 80)
           @writer.write('false')
         rescue SocketError => e
@@ -324,26 +326,26 @@ suite('Dia::RubyBlock') do
         end
       end
       
-      sandbox.run_nonblock()
+      sandbox.run_nonblock
       sleep(1)
       
-      @writer.close()
-      @result = @reader.gets()
-      @reader.close()    
+      @writer.close
+      @result = @reader.gets
+      @reader.close    
     end
 
     verify(nil) do
       @result == 'true'
     end
 
-    exercise('#run_nonblock() called. ') do
+    exercise('#run_nonblock called. ') do
 
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) { }
-      @result = sandbox.run_nonblock()
+      @result = sandbox.run_nonblock
     end
 
     verify('returns the Process ID(PID) of spawned process as a Fixnum') do
-      @result.class() == Fixnum
+      @result.class == Fixnum
     end
 
   end
