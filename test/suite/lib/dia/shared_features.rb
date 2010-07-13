@@ -33,10 +33,10 @@ suite('Dia::SharedFeatures') do
 
       setup do 
         @result  = nil
-        @sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) { sleep(10) }
+        @sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) { $stdin.gets }
       end
  
-      exercise('#run_nonblock is called, spawned process sleeps, #terminate sent to process. ') do
+      exercise('#run_nonblock is called, blocking IO performed, #terminate sent to process. ') do
         @sandbox.run_nonblock
         @result = @sandbox.terminate
       end
@@ -45,7 +45,7 @@ suite('Dia::SharedFeatures') do
         @result == 1
       end
       
-      exercise('#run_nonblock is called, spawned process sleeps, #terminate sent to process. ') do
+      exercise('#run_nonblock is called, blocking IO performed, #terminate sent to process. ') do
         @sandbox.run_nonblock
         @sandbox.terminate
         @result = @sandbox.exit_status
@@ -53,6 +53,15 @@ suite('Dia::SharedFeatures') do
 
       verify('#exit_status returns nil.') do
         @result == nil
+      end
+
+      exercise('#run_nonblock is called, blocking IO is performed, #terminate sent to process') do
+        @sandbox.run_nonblock
+        @sandbox.terminate
+      end
+
+      verify('#running? verifies the process is dead') do
+        @sandbox.running? == false
       end
 
       exercise('Neither #run or #run_nonblock has been called. ') do        
