@@ -41,61 +41,49 @@ suite('Dia::RubyBlock') do
     end
   end
 
-  suite('#exception()') do 
+  suite('#exception', :tags => [ :exception ] ) do 
+    
     setup do 
-      @result = nil
+      @result  = nil
+      @sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
+        raise
+      end
     end
 
-    exercise('@rescue is set to false, ' \
-             '#run() called, ' \
-             '#exception() returns nil to the parent process.') do
+    exercise('@rescue is set to false, #run is called, no exception is raised. ') do
       sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
         begin
           raise()
-        rescue
+        rescue => e
         end
       end
-      sandbox.run()
-      @result = sandbox.exception()
+
+      @result = sandbox.exception
     end
 
-    verify(nil) do
+    verify('#exception returns nil to the parent process.') do
       @result == nil
     end
 
-    exercise('@rescue is set to true, ' \
-             '#run() called, ' \
-             'exception raised, ' \
-             '#exception() returns raised exception to the parent process.' ) do
-
-      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
-        raise()
-      end
-      sandbox.rescue_exception = true
-      sandbox.run()
-      @result = sandbox.exception().klass()
+    exercise('@rescue is set to true, #run is called, an exception is raised. ') do
+      @sandbox.rescue_exception = true
+      @sandbox.run
+      @result = @sandbox.exception.klass
     end
 
-    verify(nil) do
+    verify('#exception returns raised exception to the parent process.') do
       @result == "RuntimeError"
     end
 
-    exercise('@rescue is set to true, ' \
-             '#run() called, ' \
-             'exception raised, ' \
-             '@rescue is set to false, ' \
-             '#exception() returns raised exception to parent process') do
-
-      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
-        raise()
-      end
-      sandbox.rescue_exception = true
-      sandbox.run()
-      sandbox.rescue_exception = false
-      @result = sandbox.exception().klass()
+    exercise('@rescue is set to true, #run is called, an is exception raised, ' \
+             '@rescue is set to false. ') do
+      @sandbox.rescue_exception = true
+      @sandbox.run()
+      @sandbox.rescue_exception = false
+      @result = @sandbox.exception.klass
     end
 
-    verify(nil) do 
+    verify('#exception returns raised exception to parent process') do 
       @result == "RuntimeError"
     end
 
