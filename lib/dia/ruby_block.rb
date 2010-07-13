@@ -28,8 +28,8 @@ module Dia
     #                            exception raised in your sandbox.
     #
     # @return [Boolean]          Returns true or false.
-    def exception_raised?()
-      !!exception()
+    def exception_raised?
+      !!exception
     end
 
     # This method will tell you whether or not a raised exception will be 
@@ -43,7 +43,7 @@ module Dia
     #
     # @return [Boolean] Returns true or false.
     # @since  2.0.0
-    def rescue_exception?()
+    def rescue_exception?
       !!@rescue
     end
 
@@ -85,12 +85,12 @@ module Dia
     #                           See how to enable it.
     #
     # @since 1.5
-    def exception()
-      if (!@read.nil?() && !@write.nil?()) && 
-         (!@read.closed?() && !@write.closed?()) && (@read.ready?())
-        @write.close()
+    def exception
+      if (!@read.nil? && !@write.nil?) && 
+         (!@read.closed? && !@write.closed?) && (@read.ready?)
+        @write.close
         @e = OpenStruct.new(Marshal.load(@read.read))
-        @read.close()
+        @read.close
       end
       @e
     end
@@ -117,7 +117,7 @@ module Dia
     #                                 been launched under.
     def run(*args)
       if @rescue
-        initialize_streams()      
+        initialize_streams      
       end
 
       launch(*args) 
@@ -130,7 +130,7 @@ module Dia
     # An identical, but non-blocking form of {#run}.
     def run_nonblock(*args)
       if @rescue
-        initialize_streams()
+        initialize_streams
       end
 
       launch(*args)
@@ -146,7 +146,7 @@ module Dia
         @pid = fork do
           if @rescue
             begin
-              initialize_sandbox()
+              initialize_sandbox
               @block.call(*args)
             rescue SystemExit, SignalException, NoMemoryError => e 
               raise(e)
@@ -159,18 +159,18 @@ module Dia
                 write_exception(e)
               end
             ensure
-              @write.close()
-              @read.close()
+              @write.close
+              @read.close
             end
           else
-            initialize_sandbox()
+            initialize_sandbox
             @block.call(*args)
           end
         end
       end
 
       # @api private
-      def initialize_sandbox()
+      def initialize_sandbox
         if Dia::Functions.sandbox_init(FFI::MemoryPointer.from_string(@profile),
                                        0x0001, 
                                        err = FFI::MemoryPointer.new(:pointer)) \
@@ -182,13 +182,13 @@ module Dia
       end
 
       # @api private
-      def initialize_streams()
-        if ( (!@read.nil?() && !@write.nil?()) && 
-             (!@read.closed?() && !@write.closed?()) )
-          @read.close()
-          @write.close()
+      def initialize_streams
+        if ( (!@read.nil? && !@write.nil?) && 
+             (!@read.closed? && !@write.closed?) )
+          @read.close
+          @write.close
         end
-        @read, @write = IO.pipe()
+        @read, @write = IO.pipe
       end
 
       # @api private
