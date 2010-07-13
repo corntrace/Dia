@@ -87,6 +87,24 @@ suite('Dia::RubyBlock') do
       @result == "RuntimeError"
     end
 
+    exercise('Exception object created, re-define #message with code that will cause ' \
+             'another exception when Dia tries to serialize exception data.') do
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
+        e = Exception.new
+        def e.message
+          raise(StandardError, 'profit')
+        end
+        raise(e)
+      end
+      sandbox.rescue_exception = true
+      sandbox.run
+      @result = sandbox.exception
+    end
+
+    verify('Second exception is captured and returned by #exception') do
+      @result
+    end
+
   end
 
   suite('#run') do
