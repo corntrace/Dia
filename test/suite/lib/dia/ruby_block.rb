@@ -15,30 +15,30 @@ suite('Dia::RubyBlock') do
 
   end
 
-  suite('#rescue_exception?()') do
-    exercise('@rescue is set to false, ' \
-             '#rescue_exception?() returns false') do
-      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
-        #...
-      end
-      @result = sandbox.rescue_exception?()
+  suite('#rescue_exception?') do
+
+    setup do
+      @result  = nil
+      @sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) { }
     end
 
-    verify(nil) do
+    exercise('@rescue is set to false. ') do
+      @result = @sandbox.rescue_exception?
+    end
+
+    verify('#rescue_exception? returns false') do
       @result == false      
     end
 
-    exercise('@rescue is set to true, ' \
-             '#rescue_exception?() returns true') do
-      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
-      end
-      sandbox.rescue_exception = true
-      @result = sandbox.rescue_exception?()
+    exercise('@rescue is set to true. ') do
+      @sandbox.rescue_exception = true
+      @result = @sandbox.rescue_exception?
     end
 
-    verify(nil) do
+    verify('#rescue_exception? returns true') do
       @result == true
     end
+
   end
 
   suite('#exception', :tags => [ :exception ] ) do 
@@ -205,17 +205,12 @@ suite('Dia::RubyBlock') do
       @result == 'true'
     end
 
-    exercise('#run() called, ' \
-             'returns the Process ID(PID) of spawned process as a Fixnum') do
-      
-      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) do
-        # ..
-      end
-
+    exercise('#run() called. ') do
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) { }
       @result = sandbox.run()
     end
 
-    verify(nil) do
+    verify('returns the Process ID(PID) of spawned process as a Fixnum') do
       @result.class == Fixnum
     end
 
@@ -341,17 +336,13 @@ suite('Dia::RubyBlock') do
       @result == 'true'
     end
 
-    exercise('#run_nonblock() called, ' \
-             'returns the Process ID(PID) of spawned process as a Fixnum') do
+    exercise('#run_nonblock() called. ') do
 
-      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
-        # ..
-      end
-
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) { }
       @result = sandbox.run_nonblock()
     end
 
-    verify(nil) do
+    verify('returns the Process ID(PID) of spawned process as a Fixnum') do
       @result.class() == Fixnum
     end
 
