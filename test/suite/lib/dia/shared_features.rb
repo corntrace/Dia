@@ -67,53 +67,42 @@ suite('Dia::SharedFeatures') do
     end
 
     suite('#running?') do 
-      exercise('#run_nonblock called, ' \
-               'spawned process sleeps for 10 seconds, ' \
-               '#running? returns true') do
-      
-        sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
-          sleep(10)
-        end
 
+      setup do
+        @result = nil
+      end
+
+      exercise('#run_nonblock is called, spawned process sleeps. ') do
+        sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) { sleep(10) }
         sandbox.run_nonblock
         @result = sandbox.running?
         sandbox.terminate
       end
 
-      verify(nil) do
+      verify('#running? returns true') do
         @result == true
       end
 
-      exercise('#run called, ' \
-               'process exits, ' \
-               '#running? returns false') do
-        sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
-          exit
-        end
-
+      exercise('#run is called, process exits immediately. ') do
+        sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) { exit }
         sandbox.run
         @result = sandbox.running?
       end
 
-      verify(nil) do
+      verify('#running? returns false') do
         @result == false
       end
 
-      exercise('When #run or #run_nonblock has not been called, ' \
-               '#running? returns nil') do
-        sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
-          # ..
-        end
-
+      exercise('Neither #run or #run_nonblock has been called. 'do
+        sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) { }
         @result = sandbox.running?
       end
 
-      verify(nil) do
+      verify('#running? returns nil') do
         @result == nil
       end
 
     end
 
   end
-
 end
