@@ -66,14 +66,16 @@ module Dia
       @rescue = boolean
     end
 
-    # This method will return the exception last raised in your sandbox. 
+    # This method will return an OpenStruct object representing the attributes
+    # of an exception raised in your sandbox.
     #
     # When this method is being used in conjuction with {#run_nonblock}, you
     # may need to call sleep for a duration of 1 to 2 seconds before the
     # exception will be available to the parent process.
     # 
-    # @return [Exception, nil]  Returns an instance or subclass instance of 
-    #                           Exception, or nil when there is no exception 
+    # @return [OpenStruct, nil] Returns an OpenStruct instance representing 
+    #                           the attributes of the exception raised in your 
+    #                           sandbox or nil when there is no exception 
     #                           available.  
     #                           Every call to {#run} or {#run_nonblock} will 
     #                           reset the instance variable referencing 
@@ -87,7 +89,7 @@ module Dia
       if (!@read.nil?() && !@write.nil?()) && 
          (!@read.closed?() && !@write.closed?()) && (@read.ready?())
         @write.close()
-        @e = Marshal.load(@read.readlines().join())
+        @e = OpenStruct.new(Marshal.load(@read.read))
         @read.close()
       end
       @e
@@ -148,8 +150,14 @@ module Dia
               @block.call(*args)
             rescue SystemExit, SignalException, NoMemoryError => e 
               raise(e)
-            rescue Exception => e      
-              @write.write(Marshal.dump(e))
+            rescue Exception => e
+              begin     
+                write_exception(e) 
+              rescue SystemExit, SignalException, NoMemoryError => e
+                raise(e)
+              rescue Exception => e
+                write_exception(e)
+              end
             ensure
               @write.close()
               @read.close()
@@ -182,7 +190,14 @@ module Dia
         end
         @read, @write = IO.pipe()
       end
- 
+
+      # @api private
+      def write_exception(e)
+        @write.write (Marshal.dump({ :klass     => e.class.to_s    ,
+                                     :backtrace => e.backtrace.to_s,
+                                     :message   => e.message.to_s }) )
+      end
+
   end
 
 end

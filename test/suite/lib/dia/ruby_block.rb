@@ -6,11 +6,11 @@ suite('Dia::RubyBlock') do
       sandbox = Dia::RubyBlock.new('invalid_profile') { }
       sandbox.rescue_exception = true
       sandbox.run
-      @result = sandbox.exception
+      @result = sandbox.exception.klass
     end
     
     verify('Dia::RubyBlock#exception returns an instance of Dia::Exceptions::SandboxException') do
-      @result.class == Dia::Exceptions::SandboxException
+      @result == "Dia::Exceptions::SandboxException"
     end
 
   end
@@ -73,11 +73,11 @@ suite('Dia::RubyBlock') do
       end
       sandbox.rescue_exception = true
       sandbox.run()
-      @result = sandbox.exception().class()
+      @result = sandbox.exception().klass()
     end
 
     verify(nil) do
-      @result == RuntimeError
+      @result == "RuntimeError"
     end
 
     exercise('@rescue is set to true, ' \
@@ -92,11 +92,11 @@ suite('Dia::RubyBlock') do
       sandbox.rescue_exception = true
       sandbox.run()
       sandbox.rescue_exception = false
-      @result = sandbox.exception().class()
+      @result = sandbox.exception().klass()
     end
 
     verify(nil) do 
-      @result == RuntimeError
+      @result == "RuntimeError"
     end
 
   end
