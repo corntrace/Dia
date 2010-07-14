@@ -20,15 +20,15 @@ module Dia
     # The terminate method will send the SIGKILL signal to your sandbox.
     #
     # To prevent the possible accumulation of zombies, this method will 
-    # wait to collect the status of your sandbox if it doesn't appear to have
-    # left the process table after sending SIGKILL.
+    # wait to collect the exit status of your sandbox if it doesn't appear 
+    # to have left the process table after sending SIGKILL.
     #
     # This is a rare event, and when it does happen #terminate shouldn't block
     # for more than one second.
     #
     # @raise  [SystemCallError] It may raise a number of subclasses of 
     #                           SystemCallError if a call to Process.kill 
-    #                           was unsuccessful…
+    #                           was unsuccessful
     #
     # @return [Fixnum, nil]     Returns 1 when successful.     
     #                           Returns nil if #run or #run_nonblock has not 
@@ -40,15 +40,13 @@ module Dia
       ret
     end
     
-    # This method will tell you whether or not your sandbox is still running.
+    # This method will tell you if your sandbox is still running by returning a boolean.
     #
-    # @raise  [SystemCallError] Raises a subclass of SystemCallError if 
-    #                           you do not have permission to send a signal
-    #                           to the process running in a sandboxed 
-    #                           environment.
+    # @raise  [SystemCallError] It may raise a number of subclasses of SystemCallError 
+    #                           if a signal cannot be sent to the process running 
+    #                           a sandbox.
     #
-    # @return [Boolean,nil]     Returns true when the sandbox is running 
-    #                           and false if it is not.  
+    # @return [Boolean,nil]     Returns true, false, or nil.  
     #                           Returns nil if #run or #run_nonblock has 
     #                           not been called yet.
     def running?()

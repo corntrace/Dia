@@ -18,8 +18,8 @@ module Dia
     end
 
 
-    # This method will tell you whether or not an exception has been raised in
-    # your sandbox after your sandbox has been executed.
+    # This method will tell you if a sandbox executed in a child process 
+    # has raised an exception or not by returning a boolean. 
     # 
     # @see    #rescue_exception= See #rescue_exception= for enabling the capture
     #                            of raised exceptions in your sandbox.
@@ -32,8 +32,8 @@ module Dia
       !!exception
     end
 
-    # This method will tell you whether or not a raised exception will be 
-    # rescued by Dia in your sandbox.
+    # This method will tell you if the {#rescue_exception=} feature is enabled by
+    # returning a boolean.
     #
     # @see    #rescue_exception= See #rescue_exception= for enabling the capture
     #                            of raised exceptions in your sandbox.
@@ -49,9 +49,10 @@ module Dia
 
     # This method can enable or disable a feature that will capture 
     # exceptions that are raised in your sandbox.  
-    # This feature is useful because a sandbox is spawned inside a child 
-    # process, and communicating data between the two processes can be 
-    # cumbersome at times.
+    # This feature is useful because your sandbox is executed inside a 
+    # child process.  
+    # Communicating data between the parent process and child process can be 
+    # cumbersome at times - this feature tries to alleviate that.
     #
     # @param  [Boolean] Boolean A boolean is recommended  but a 
     #                           true(ish) or false(ish) value is suffice.  
@@ -67,15 +68,15 @@ module Dia
     end
 
     # This method will return an OpenStruct object representing the attributes
-    # of an exception raised in your sandbox.
+    # of an exception object raised in your sandbox.
     #
     # When this method is being used in conjuction with {#run_nonblock}, you
     # may need to call sleep for a duration of 1 to 2 seconds before the
     # exception will be available to the parent process.
     # 
     # @return [OpenStruct, nil] Returns an OpenStruct instance representing 
-    #                           the attributes of the exception raised in your 
-    #                           sandbox or nil when there is no exception 
+    #                           the attributes of the exception object raised 
+    #                           in your sandbox or nil when there is no exception 
     #                           available.  
     #                           Every call to {#run} or {#run_nonblock} will 
     #                           reset the instance variable referencing 
@@ -95,8 +96,8 @@ module Dia
       @e
     end
 
-    # The run method will spawn a child process and run the block supplied to 
-    # the constructor under a sandboxed environment.  
+    # The run method will execute a block supplied to the constructer in a child process
+    # under a sandboxed environment.   
     # This method will block. See {#run_nonblock} for the non-blocking form of
     # this method.
     #
@@ -104,14 +105,14 @@ module Dia
     #                                 be passed onto the block supplied to the 
     #                                 constructer. Optional.
     #
-    # @raise  [SystemCallError]       A number of subclasses of SystemCallError 
-    #                                 may be raised if the block violates 
-    #                                 sandbox restrictions.
+    # @raise  [SystemCallError]       It may raise a number of subclasses of SystemCallError 
+    #                                 in a child process if your sandbox violates imposed 
+    #                                 restrictions.   
     #
-    # @raise  [Dia::SandboxException] Will raise 
+    # @raise  [Dia::SandboxException] It may raise 
     #                                 {Dia::Exceptions::SandboxException}
-    #                                 if it was not possible to initialize
-    #                                 a sandbox environment. 
+    #                                 in a child process if it was not possible
+    #                                 to initialize a sandbox environment. 
     #
     # @return [Fixnum]                The Process ID(PID) that the sandbox has
     #                                 been launched under.

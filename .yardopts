@@ -1,5 +1,6 @@
 -m markdown
 -o docs
+-q
 --
 lib/**/*.rb
 README.mkd
