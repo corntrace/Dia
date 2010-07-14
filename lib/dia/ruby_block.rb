@@ -193,9 +193,9 @@ module Dia
 
       # @api private
       def write_exception(e)
-        @write.write (Marshal.dump({ :klass     => e.class.to_s    ,
-                                     :backtrace => e.backtrace.join("\n"),
-                                     :message   => e.message.to_s }) )
+        @write.write(Marshal.dump({ :klass     => e.class.to_s    ,
+                                    :backtrace => e.backtrace.join("\n"),
+                                    :message   => e.message.to_s }) )
       end
 
   end
