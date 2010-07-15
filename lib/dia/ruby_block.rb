@@ -5,6 +5,10 @@ module Dia
     require('io/wait')  
     include Dia::SharedFeatures
 
+    # @return  [Fixnum]  Returns the Process ID(PID) of the last child process that ran
+    #                    in a sandboxed environment.  
+    attr_reader :pid
+
     # @param  [String] Profile Accepts one of five profiles which can be found
     #                          under the {Dia::Profiles} module.
     #

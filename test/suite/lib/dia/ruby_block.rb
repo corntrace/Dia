@@ -34,6 +34,20 @@ suite('Dia::RubyBlock') do
     end
 
   end
+
+  suite('#pid') do
+    
+    exercise('#run is called, then #pid is called. ') do
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES) { }
+      sandbox.run
+      @result = sandbox.pid
+    end
+
+    verify('#pid returns a Fixnum object') do
+      @result.class == Fixnum
+    end
+
+  end
   
   suite('#rescue_exception?') do
 
