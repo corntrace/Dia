@@ -8,10 +8,15 @@ module Dia
     # @param  [String] Profile Accepts one of five profiles which can be found
     #                          under the {Dia::Profiles} module.
     #
-    # @param  [Proc]  Proc     Accepts a Proc object as its second argument.
+    # @param  [Proc]   Block   Accepts a block or Proc object as its second argument.
+    #
+    # @raise  [ArgumentError]  It may raise an ArgumentError if a block isn't supplied to the
+    #                          constructor.
     #
     # @return [Dia::RubyBlock] Returns an instance of Dia::RubyBlock.
     def initialize(profile, &block)
+      raise(ArgumentError, "It is required that a block be passed to the constructor.\n" \
+                           "Please consult the documentation.") unless block_given?
       @profile = profile
       @proc   = block
       @rescue  = false

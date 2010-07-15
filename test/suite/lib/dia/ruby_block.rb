@@ -15,6 +15,26 @@ suite('Dia::RubyBlock') do
 
   end
 
+  suite('#initialize') do
+
+    setup do
+      @result = nil
+    end
+
+    exercise('No block is passed to the constructor. ') do
+      begin
+        Dia::RubyBlock.new(Dia::Profiles::NO_OS_SERVICES)
+      rescue ArgumentError => e
+        @result = true
+      end
+    end
+
+    verify('ArgumentError is raised.') do 
+      @result      
+    end
+
+  end
+  
   suite('#rescue_exception?') do
 
     setup do
