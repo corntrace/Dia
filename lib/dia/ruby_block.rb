@@ -13,7 +13,7 @@ module Dia
     # @return [Dia::RubyBlock] Returns an instance of Dia::RubyBlock.
     def initialize(profile, &block)
       @profile = profile
-      @block   = block
+      @proc   = block
       @rescue  = false
     end
 
@@ -148,7 +148,7 @@ module Dia
           if @rescue
             begin
               initialize_sandbox
-              @block.call(*args)
+              @proc.call(*args)
             rescue SystemExit, SignalException, NoMemoryError => e 
               raise(e)
             rescue Exception => e
@@ -165,7 +165,7 @@ module Dia
             end
           else
             initialize_sandbox
-            @block.call(*args)
+            @proc.call(*args)
           end
         end
       end
