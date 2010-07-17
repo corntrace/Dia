@@ -69,37 +69,33 @@ module Dia
     # @return [Boolean] Returns the passed argument.
     #
     # @see    #exception See #exception for information on how to access 
-    #                    an exception raised in your sandbox.
+    #                    the data of an exception raised in your sandbox.
     #
     # @since 2.0.0
     def rescue_exception=(boolean)
       @rescue = boolean
     end
 
-    # This method will return an OpenStruct object representing the attributes
-    # of an exception object raised in your sandbox.
-    #
-    # When this method is being used in conjuction with {#run_nonblock}, you
-    # may need to call sleep for a duration of 1 to 2 seconds before the
-    # exception will be available to the parent process.
+    # This method will return a {Dia::ExceptionStruct} object which represents the attributes
+    # of an exception object captured by Dia in your sandbox.  
+    # Every call to {#run} or {#run_nonblock} will reset the instance variable referencing 
+    # exception data to nil.  
     # 
-    # @return [OpenStruct, nil] Returns an OpenStruct instance representing 
-    #                           the attributes of the exception object raised 
-    #                           in your sandbox or nil when there is no exception 
-    #                           available.  
-    #                           Every call to {#run} or {#run_nonblock} will 
-    #                           reset the instance variable referencing 
-    #                           an exception to nil.
+    # @return [Dia::ExceptionStruct, nil] Returns an instance of {Dia::ExceptionStruct} or nil 
+    #                                     when there is no exception available.  
     #
-    # @see #rescue_exception=   This feature is disabled by default.  
-    #                           See how to enable it.
+    # @see #rescue_exception=             The "capture exception" feature is disabled by default.  
+    #                                     See how to enable it.
+    #
+    # @see Dia::ExceptionStruct           The documentation for Dia::ExceptionStruct.
     #
     # @since 1.5
     def exception
       if (!@read.nil? && !@write.nil?) && 
          (!@read.closed? && !@write.closed?) && (@read.ready?)
         @write.close
-        @e = OpenStruct.new(Marshal.load(@read.read))
+        hash = Marshal.load( @read.read )
+        @e = ExceptionStruct.new(hash[:klass], hash[:message], hash[:backtrace])
         @read.close
       end
       @e
