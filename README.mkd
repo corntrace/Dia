@@ -8,15 +8,23 @@ simple, and a joy to use. I hope you feel the same way :-)
 
 * RubyBlock
 
+        require('rubygems')
+        require('dia')
+        require('open-uri')
+
         sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
-          open('http://www.google.com').read
+          open('http://www.google.com')
         end
 
         sandbox.rescue_exception = true
         sandbox.run
-        puts sandbox.exception.klass
+        puts "Exception  : #{sandbox.exception.klass}"
+        puts "Message    : #{sandbox.exception.message}"
 
 * Application
+
+        require('rubygems')
+        require('dia')
 
         sandbox = Dia::Application.new(Dia::Profiles::NO_INTERNET,
                                        '/path/to/firefox')
@@ -26,15 +34,15 @@ simple, and a joy to use. I hope you feel the same way :-)
 
 ## Documentation
 
+* [API Documentation](http://yardoc.org/docs/robgleeson-Dia/)   
+  Written using YARD, the API documentation makes a great reference.  
+  *The API documentation linked is for the latest stable release*
+
+* [Mailing list](http://blah.com)   
+  Troubleshoot your problems with other Dia users on the Google Groups mailing list.  
+
 * Wiki documentation  
-  Written as a sort of tutorial, the wiki is a great place to start.
-
-* API Documentation  
-  Written using YARD, the API documentation makes a great reference.
-
-If you want to benefit the most from the documentation, I suggest using both 
-the API documentation and the Wiki documentation. The Wiki has an introductry 
-piece that you really should read.
+  *Work in progress*
 
 ## Supported Rubies.
 
@@ -48,6 +56,10 @@ reported a 100% success rate.
 * REE
   * Ruby Enterprise Edition 2010.02 (1.8.7-p253)
 
+MacRuby is not supported because it does not support Kernel.fork, and it won't add support
+for fork anytime soon(if ever).  
+JRuby has experimental support for fork, but I haven't tried it.
+ 
 ## Bugs  
 Bug reports are _very_ welcome, and can be reported through the
 [issue tracker](http://github.com/robgleeson/dia/issues).
