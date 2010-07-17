@@ -94,8 +94,7 @@ module Dia
       if (!@read.nil? && !@write.nil?) && 
          (!@read.closed? && !@write.closed?) && (@read.ready?)
         @write.close
-        hash = Marshal.load( @read.read )
-        @e = ExceptionStruct.new(hash[:klass], hash[:message], hash[:backtrace])
+        @e = ExceptionStruct.new(*Marshal.load(@read.read).values_at(:klass, :message, :backtrace))
         @read.close
       end
       @e
