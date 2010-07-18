@@ -34,9 +34,9 @@ module Dia
     # When the "capture stdout" feature is enabled, this method will return the contents
     # of the standard output stream for the child process used to execute your sandbox.
     #
-    # @return [String]       Returns the contents of stdout.   
-    #                        Returns nil when no data is available on stdout, or when the 
-    #                        "capture stdout" feature is disabled.
+    # @return [String, nil]       Returns the contents of stdout.   
+    #                             Returns nil when no data is available on stdout, or when the 
+    #                             "capture stdout" feature is disabled.
     #
     # @see #redirect_stdout= This feature is disabled by default. See how to enable it.
     #   
@@ -92,9 +92,9 @@ module Dia
     # When the "capture stderr" feature is enabled, this method will return the contents
     # of the standard error stream for the child process used to execute your sandbox.
     #
-    # @return [String]       Returns the contents of stderr.   
-    #                        Returns nil when no data is available on stderr, or when the 
-    #                        "capture stderr" feature is disabled.
+    # @return [String, nil]       Returns the contents of stderr.   
+    #                             Returns nil when no data is available on stderr, or when the 
+    #                             "capture stderr" feature is disabled.
     #
     # @see #redirect_stderr= This feature is disabled by default. See how to enable it.
     #   
