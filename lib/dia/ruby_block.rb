@@ -26,6 +26,7 @@ module Dia
       @proc            = block
       @rescue          = false
       @redirect_stdout = false
+      @redirect_stderr = false
       @pipes           = {}
     end
 
@@ -65,7 +66,45 @@ module Dia
     #
     # @return [Boolean] Returns true or false.
     def redirect_stdout?
-      !!@redirect_stdout
+      !!stdout
+    end
+
+    # This method will tell you if standard error is being redirected in the child process
+    # used to execute your sandbox.
+    #
+    # @see    #redirect_stderr= See how to enable the "redirect stderr" feature. 
+    # @return [Boolean] returns true or false.
+    def redirect_stderr?
+      !!stderr
+    end
+
+    # This method can enable or disable a feature that will capture standard error output
+    # in the child process that is spawned to execute a sandbox.
+    #
+    # @param  [Boolean] Boolean Accepts a true(-ish) or false(-ish) value.
+    # @return [Boolean] Returns the calling argument.
+    # @see    #stdout   See #stderr for accessing the contents of stderr.
+    def redirect_stderr=(boolean)
+      @redirect_stderr = boolean
+    end
+
+
+    # When the "capture stderr" feature is enabled, this method will return the contents
+    # of the standard error stream for the child process used to execute your sandbox.
+    #
+    # @return [String]       Returns the contents of stderr.   
+    #                        Returns nil when no data is available on stderr, or when the 
+    #                        "capture stderr" feature is disabled.
+    #
+    # @see #redirect_stderr= This feature is disabled by default. See how to enable it.
+    #   
+    def stderr
+      if pipes_readable?(@pipes[:stderr_reader], @pipes[:stderr_writer])
+        @pipes[:stderr_writer].close
+        @stderr = @pipes[:stderr_reader].read
+        @pipes[:stderr_reader].close
+      end
+      @stderr
     end
 
     # This method will tell you if an exception has been raised in the child process
@@ -186,6 +225,7 @@ module Dia
 
         @pid = fork do
           redirect(:stdout) if @redirect_stdout
+          redirect(:stderr) if @redirect_stderr
           if @rescue
             begin
               initialize_sandbox
@@ -200,9 +240,8 @@ module Dia
               rescue Exception => e
                 write_exception(e)
               end
-            else
             ensure
-              write_stdout_to_pipe_if_needed
+              write_stdout_and_stderr_if_needed
               close_pipes_if_needed
             end
           else
@@ -210,7 +249,7 @@ module Dia
               initialize_sandbox
               @proc.call(*args)
             ensure
-              write_stdout_to_pipe_if_needed
+              write_stdout_and_stderr_if_needed
               close_pipes_if_needed
             end
           end
@@ -230,12 +269,19 @@ module Dia
       end
 
       # @api private
-      def write_stdout_to_pipe_if_needed
+      def write_stdout_and_stderr_if_needed
         if @redirect_stdout
           $stdout.rewind
           @pipes[:stdout_reader].close
           @pipes[:stdout_writer].write($stdout.read)
           @pipes[:stdout_writer].close
+        end
+
+        if @redirect_stderr
+          $stderr.rewind
+          @pipes[:stderr_reader].close
+          @pipes[:stderr_writer].write($stderr.read)
+          @pipes[:stderr_writer].close
         end
       end
 
@@ -252,6 +298,7 @@ module Dia
       def open_pipes_if_needed
         @pipes[:exception_reader], @pipes[:exception_writer] = IO.pipe if @rescue
         @pipes[:stdout_reader]   , @pipes[:stdout_writer]    = IO.pipe if @redirect_stdout
+        @pipes[:stderr_reader]   , @pipes[:stderr_writer]    = IO.pipe if @redirect_stderr
       end
 
       # @api private
@@ -276,7 +323,8 @@ module Dia
           $stdout  = StringIO.new
           Object.const_set(:STDOUT, $stdout)
         else
-          # implement me
+          $stderr  = StringIO.new
+          Object.const_set(:STDERR, $stderr)
         end
         $VERBOSE = level
       end
