@@ -49,6 +49,86 @@ suite('Dia::RubyBlock') do
 
   end
   
+  suite('#stdout') do
+    
+    setup do 
+      @result = nil
+    end
+
+    exercise('@rescue set to true, @redirect_stdout set to true, #run called, ' \
+             '$stdout written to. ') do
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do 
+        $stdout.print "Hello, world!"
+      end
+      sandbox.rescue_exception = true
+      sandbox.redirect_stdout  = true
+      sandbox.run
+      @result = sandbox.stdout
+    end
+
+    verify('#stdout returns the contents of $stdout.') do
+      @result == 'Hello, world!'
+    end
+
+    exercise('@rescue set to true, @redirect_stdout set to true, #run called, ' \
+             'STDOUT written to.') do
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do 
+        STDOUT.print "Goodbye, world!"
+      end
+      sandbox.rescue_exception = true
+      sandbox.redirect_stdout  = true
+      sandbox.run
+      @result = sandbox.stdout
+    end
+
+    verify('#stdout returns the contents of stdout of STDOUT') do
+      @result == 'Goodbye, world!'
+    end
+
+    exercise('@rescue set to false, @redirect_stdout set to true, #run called, ' \
+             '$stdout written to. ') do
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
+        $stdout.print "Hello, world!"
+      end
+      sandbox.redirect_stdout = true
+      sandbox.run
+      @result = sandbox.stdout
+    end
+
+    verify('#stdout returns the contents of $stdout') do
+      @result == 'Hello, world!'
+    end
+
+    exercise('@rescue set to false, @redirect_stdout set to true, #run called, ' \
+             'STDOUT written to. ') do
+
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
+        STDOUT.print "Goodbye, world!"
+      end
+      sandbox.redirect_stdout = true
+      sandbox.run
+      @result = sandbox.stdout
+   end
+
+    verify('#stdout returns the contents of STDOUT') do
+      @result == 'Goodbye, world!'
+    end
+
+    exercise('@redirect_stdout set to false, #run called. ') do
+      sandbox = Dia::RubyBlock.new(Dia::Profiles::NO_INTERNET) do
+        $stdout.print ""
+        STDOUT.print  ""
+      end
+      sandbox.run
+      @result = sandbox.stdout
+    end
+
+    verify('#stdout returns nil') do
+      @result == nil
+    end
+
+  end
+
   suite('#rescue_exception?') do
 
     setup do
