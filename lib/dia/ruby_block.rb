@@ -66,7 +66,7 @@ module Dia
     #
     # @return [Boolean] Returns true or false.
     def redirect_stdout?
-      !!stdout
+      !!@rescue_stdout
     end
 
     # This method will tell you if standard error is being redirected in the child process
@@ -75,7 +75,7 @@ module Dia
     # @see    #redirect_stderr= See how to enable the "redirect stderr" feature. 
     # @return [Boolean] returns true or false.
     def redirect_stderr?
-      !!stderr
+      !!@rescue_stderr
     end
 
     # This method can enable or disable a feature that will capture standard error output
