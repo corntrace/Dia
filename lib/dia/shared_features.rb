@@ -1,7 +1,14 @@
 module Dia
 
   module SharedFeatures
-
+    
+    # @return  [Fixnum, nil]  Returns the Process ID(PID) of the last child process that was
+    #                         used to execute a sandbox.  
+    #                         Returns nil if #run or #run_nonblock has not been called yet.
+    def pid
+      @pid
+    end
+  
     # The exit_status method will return the exit status of your sandbox.  
     # This method *will* block until the child process(your sandbox) exits.
     #
@@ -59,6 +66,20 @@ module Dia
         rescue Errno::ESRCH
           false
         end
+      end
+    end
+
+    private
+    
+    # @api private
+    def initialize_sandbox
+      if Dia::Functions.sandbox_init(FFI::MemoryPointer.from_string(@profile),
+                                     0x0001, 
+                                     err = FFI::MemoryPointer.new(:pointer)) \
+                                     == -1
+
+        raise(Dia::Exceptions::SandboxException, "Failed to initialize sandbox" \
+                                                 "(#{err.read_pointer.read_string})")
       end
     end
  

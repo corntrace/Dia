@@ -6,9 +6,6 @@ module Dia
     require('stringio') 
     include Dia::SharedFeatures
 
-    # @return  [Fixnum]  Returns the Process ID(PID) of the last child process that was
-    #                    used to execute a sandbox.
-    attr_reader :pid
 
     # @param  [String] Profile Accepts one of five profiles which can be found
     #                          under the {Dia::Profiles} module.
@@ -253,18 +250,6 @@ module Dia
               close_pipes_if_needed
             end
           end
-        end
-      end
-
-      # @api private
-      def initialize_sandbox
-        if Dia::Functions.sandbox_init(FFI::MemoryPointer.from_string(@profile),
-                                       0x0001, 
-                                       err = FFI::MemoryPointer.new(:pointer)) \
-                                       == -1
-
-          raise(Dia::Exceptions::SandboxException, "Failed to initialize sandbox" \
-                                                   "(#{err.read_pointer.read_string})")
         end
       end
 
