@@ -40,8 +40,9 @@ Gem::Specification.new do |s|
   >=2.0.0 releases include public API changes that are not backward
   compatiable with older releases. Be sure to check the docs!
  
-  [Github]        http://github.com/robgleeson/dia
-  [Documentation] http://yardoc.org/robgleeson-dia/
+  [Github]             http://github.com/robgleeson/dia
+  [API Documentation]  http://yardoc.org/docs/robgleeson-dia/
+  [Mailing List (new)] http://groups.google.com/group/ruby-dia
   --------------------------------------------------------------------  
   MESSAGE
 

@@ -38,7 +38,7 @@ simple, and a joy to use. I hope you feel the same way :-)
   Written using YARD, the API documentation makes a great reference.  
   *The API documentation linked is for the latest stable release*
 
-* [Mailing list](http://blah.com)   
+* [Mailing list](http://groups.google.com/group/ruby-dia)   
   Troubleshoot your problems with other Dia users on the Google Groups mailing list.  
 
 * Wiki documentation  

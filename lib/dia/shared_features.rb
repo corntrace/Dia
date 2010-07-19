@@ -10,12 +10,15 @@ module Dia
     end
   
     # The exit_status method will return the exit status of your sandbox.  
-    # This method *will* block until the child process(your sandbox) exits.
+    # This method *will* block until the child process(your sandbox) exits
+    # when being used with #run_nonblock.
     #
     # @return [Fixnum, nil] Returns the exit status of your sandbox as a 
     #                       Fixnum.  
     #                       Returns nil if #run or #run_nonblock has not
-    #                       been called yet.
+    #                       been called yet.  
+    #                       Returns nil if the process hasn't exited yet and 
+    #                       #run is being used.
     # @since 1.5
     def exit_status()
       unless @exit_status.nil?
