@@ -294,6 +294,18 @@ suite('Dia::RubyBlock') do
       @result
     end
 
+    exercise('@rescue set to true, #run called, exception raised, @rescue set to false, ' \
+             '#run called again') do
+      @sandbox.rescue_exception = true
+      @sandbox.run
+      @sandbox.rescue_exception = false
+      @sandbox.run
+    end
+
+    verify('#exception returns nil') do
+      @sandbox.exception == nil
+    end
+
   end
 
   suite('#run') do

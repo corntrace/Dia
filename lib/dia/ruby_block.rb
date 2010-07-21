@@ -165,8 +165,10 @@ module Dia
     # Every call {#run} or {#run_nonblock} will reset the instance variable referencing the
     # object storing exception data to nil.
     # 
-    # @return [Dia::ExceptionStruct, nil] Returns an instance of {Dia::ExceptionStruct} or nil 
-    #                                     when there is no exception available.  
+    # @return [Dia::ExceptionStruct, nil] Returns an instance of {#Dia::ExceptionStruct}.  
+    #                                     Returns nil when there is no exception available or if 
+    #                                     the "capture exceptions" feature has been disabled for
+    #                                     the last call to {#run} or {#run_nonblock}.   
     #
     # @see #rescue_exception=             The "capture exception" feature is disabled by default.  
     #                                     See how to enable it.
