@@ -34,7 +34,7 @@ module Dia
     # Every call to {#run} or {#run_nonblock} will reset the ivar referencing the contents
     # of stdout to nil.
     #
-    # @return [String, nil]       Returns the contents of stdout.   
+    # @return [String, nil]       Returns the contents of stdout as a String.   
     #                             Returns nil when no data is available on stderr, or if the 
     #                             "capture stdout" feature has been disabled for the last
     #                             call to {#run} or {#run_nonblock}.
@@ -96,8 +96,7 @@ module Dia
     # Every call to {#run} or {#run_nonblock} will reset the ivar referencing the contents
     # of stderr to nil.
     #
-    # @return [String, nil]       Returns the contents of stderr from the last executed sandbox 
-    #                             as a String, or nil.   
+    # @return [String, nil]       Returns the contents of stderr as a String. 
     #                             Returns nil when no data is available on stderr, or if the 
     #                             "capture stderr" feature has been disabled for the last
     #                             call to {#run} or {#run_nonblock}.
