@@ -29,7 +29,7 @@ module Dia
 
 
     # When the "capture stdout" feature is enabled, this method will return the contents
-    # of the standard output stream for the child process used to execute your sandbox.
+    # of the standard output stream for the child process last used to execute your sandbox.
     #
     # Every call to {#run} or {#run_nonblock} will reset the ivar referencing the contents
     # of stdout to nil.
@@ -96,7 +96,7 @@ module Dia
     # Every call to {#run} or {#run_nonblock} will reset the ivar referencing the contents
     # of stderr to nil.
     #
-    # @return [String, nil]       Returns the contents of stderr as a String. 
+    # @return [String, nil]       Returns the contents of stderr as a String.   
     #                             Returns nil when no data is available on stderr, or if the 
     #                             "capture stderr" feature has been disabled for the last
     #                             call to {#run} or {#run_nonblock}.
