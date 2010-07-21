@@ -35,8 +35,9 @@ module Dia
     # of stdout to nil.
     #
     # @return [String, nil]       Returns the contents of stdout.   
-    #                             Returns nil when no data is available on stdout, or when the 
-    #                             "capture stdout" feature is disabled.
+    #                             Returns nil when no data is available on stderr, or if the 
+    #                             "capture stdout" feature has been disabled for the last
+    #                             call to {#run} or {#run_nonblock}.
     #
     # @see #redirect_stdout= This feature is disabled by default. See how to enable it.
     #   
@@ -90,14 +91,16 @@ module Dia
 
 
     # When the "capture stderr" feature is enabled, this method will return the contents
-    # of the standard error stream for the child process used to execute your sandbox.
+    # of the standard error stream for the child process last used to execute your sandbox.
     #
     # Every call to {#run} or {#run_nonblock} will reset the ivar referencing the contents
     # of stderr to nil.
     #
-    # @return [String, nil]       Returns the contents of stderr as a String, or nil.   
-    #                             Returns nil when no data is available on stderr, or when the 
-    #                             "capture stderr" feature is disabled.
+    # @return [String, nil]       Returns the contents of stderr from the last executed sandbox 
+    #                             as a String, or nil.   
+    #                             Returns nil when no data is available on stderr, or if the 
+    #                             "capture stderr" feature has been disabled for the last
+    #                             call to {#run} or {#run_nonblock}.
     #
     # @see #redirect_stderr= This feature is disabled by default. See how to enable it.
     #   
