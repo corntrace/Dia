@@ -31,6 +31,9 @@ module Dia
     # When the "capture stdout" feature is enabled, this method will return the contents
     # of the standard output stream for the child process used to execute your sandbox.
     #
+    # Every call to {#run} or {#run_nonblock} will reset the ivar referencing the contents
+    # of stdout to nil.
+    #
     # @return [String, nil]       Returns the contents of stdout.   
     #                             Returns nil when no data is available on stdout, or when the 
     #                             "capture stdout" feature is disabled.
@@ -89,7 +92,10 @@ module Dia
     # When the "capture stderr" feature is enabled, this method will return the contents
     # of the standard error stream for the child process used to execute your sandbox.
     #
-    # @return [String, nil]       Returns the contents of stderr.   
+    # Every call to {#run} or {#run_nonblock} will reset the ivar referencing the contents
+    # of stderr to nil.
+    #
+    # @return [String, nil]       Returns the contents of stderr as a String, or nil.   
     #                             Returns nil when no data is available on stderr, or when the 
     #                             "capture stderr" feature is disabled.
     #
@@ -216,7 +222,7 @@ module Dia
     private
       # @api private
       def launch(*args)
-        @e = @stdout = nil
+        @e = @stdout = @stderr =  nil
         close_pipes_if_needed
         open_pipes_if_needed
 
